@@ -1,0 +1,117 @@
+/*
+.keyname accesses class
+#keyname accesses id
+cntrl forward slash to quickly comment in CSS
+*/
+    /* ododo */
+body {
+    background-image:url("https://i.redd.it/spi1uzviv3tz.png");
+
+}
+
+#mainContainer{
+    display:flex;
+    
+}
+
+
+#sideBar>h2{
+    background-color:pink;
+    text-align: center;
+    padding: 5%;
+    /* position: sticky;
+    top:0; */
+    
+}
+
+#sideBar>h2:hover{
+    background-color:hotpink; 
+    
+    border-radius: 30px;
+
+    transition-duration: 1s;
+}
+#sideBar>select{
+    background-color: chartreuse;
+    /* position: sticky;
+    top:0; */
+    text-shadow: 1px 1px red;
+}
+
+#aDiv {
+    border: ridge 50px #afa519ce;
+    background-color: khaki;
+    display: flex;
+}
+.aDivHeader {
+    order: 1;
+    position: sticky;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#rDiv {
+    background-color: lightblue;
+    border: ridge 50px rgb(6, 190, 251) ;
+    display: flex;
+}
+.rDivHeader {
+    position: sticky;
+    text-align:center;
+    
+    order: 0;
+}
+
+.displayHeading{
+   
+    color: tomato;
+}
+
+.movieDivs {
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center;
+
+    flex-wrap: wrap-reverse; */
+    width: 2000px;
+
+    overflow: hidden;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    
+}
+.imageDiv {
+    border-radius: 32%;
+    position: relative;
+    border: solid yellow 30px;
+    background-color: yellow;
+    border-radius: 5%;
+    
+
+}
+.clickMe{
+    margin: 5px;
+    background-color: yellow;
+    text-align: center;
+}
+.clickMe:hover {
+    background-color: powderblue;
+   
+}
+
+.movieImage {
+    width: 250px;
+    height: 450px;
+    
+}
+.moviePoster {
+    margin: 10px;
+    border: 25px inset pink;
+    background-color:yellowgreen;
+    text-align: center;
+
+}
+
+
+
+
