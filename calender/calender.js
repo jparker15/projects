@@ -57,10 +57,11 @@ days in each month
 
 //let currentDate = "2020-04-06";
 // let currentDate = {year:2020,month:04,day:06};
+document.body.style.backgroundColor = "lightpink";
 
 let dateInfo = {
 
-    year: 2020, 
+    year: 2999, 
     month: 5,
     day: 31,
 
@@ -75,8 +76,9 @@ createInitalElems()
 function createInitalElems(){
     // create head elem
     //set properties
+   
 
-    createHeading({text:createTextFromDateObj("-"), id:"dateHead", size:1})
+    createHeading({text:createTextFromDateObj(), id:"dateHead", size:1,color:"maroon"})
 
     //append to body
    // document.body.appendChild(dateHeading);
@@ -106,13 +108,13 @@ function createInitalElems(){
 //returns a string from the global 'dateInfo' js object
 function createTextFromDateObj(separator) {
 
-    let sep = separator != undefined ? separator : '/',
+    let sep = separator != undefined ? separator : '-',
 
         dateObj = dateInfo,
 
         day = dateInfo.day > 9 ? dateInfo.day : '0' + dateInfo.day,
 
-        month = dateInfo.month > 9 ? dateInfo.month : '0' + dateInfo.month;
+        month = dateInfo.month > 9 ? dateInfo.month : '0' + dateInfo.month,
 
         string = month + sep + day + sep + dateInfo.year;
 
@@ -125,7 +127,7 @@ function createTextFromDateObj(separator) {
 
 function modifyDate(){
   // find out what button was clicked
-    console.log(this); // expect: html from which the function was called
+    //console.log(this); // expect: html from which the function was called
     
 
     let id = this.id,
@@ -155,9 +157,11 @@ function modifyDate(){
 
             break;
         case "nextYear":
+                nextYear(currYear)
 
             break;
         case "prevYear":
+                prevYear(currYear)
 
             break;
 
@@ -180,7 +184,7 @@ function nextDay (currDay,currMonth){
     //if on last day of month, if so go to nex month
     // is it Dec? if so go to next year 
     // if not on last day of month, increment by one day number
-    console.log(dateInfo);
+   // console.log(dateInfo);
    
                     //
     if (currDay < dateInfo.dayInMonths[currMonth-1] ){
@@ -199,7 +203,7 @@ function nextDay (currDay,currMonth){
         dateInfo.year++;
 
     }
-console.log(dateInfo);
+//console.log(dateInfo);
 
 
     //if all is normal
@@ -258,6 +262,19 @@ function prevMonth (currMonth){
         console.log(`something has gone wrong ${dateInfo}`);
         
     }
+}
+
+function nextYear (currYear){
+
+    dateInfo.year++
+
+}
+
+
+function prevYear (currYear){
+
+    dateInfo.year--
+
 }
 
 //??
