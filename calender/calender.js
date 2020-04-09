@@ -57,11 +57,11 @@ days in each month
 
 //let currentDate = "2020-04-06";
 // let currentDate = {year:2020,month:04,day:06};
-document.body.style.backgroundColor = "lightpink";
+document.body.style.backgroundColor = "khaki";
 
 let dateInfo = {
 
-    year: 2999, 
+    year: 2020, 
     month: 5,
     day: 31,
 
