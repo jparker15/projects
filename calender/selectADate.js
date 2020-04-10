@@ -11,13 +11,23 @@ If you can get this completed there are two additional challenges I encourage yo
 *  try changing the code we created together if you think there is possibly a different way to accomplish the same thing!
 */
 
-// document.body.style.backgroundColor = "black";
-
+/**
+ * Year select dosen't disappear onChange
+ * Month select doesn't appear or disappear
+ * Day select doesn't appear or disappear
+ * Final date doesn't display with text Element
+ * 
+ * Februaray doesn't account for leap year selection
+ * Days don't account for Month selection
+ * Month selection in string instead of integers
+ */
+document.body.style.backgroundColor = "maroon"
 document.body.appendChild(createButton({id:"selBtn",class:"button",text:"Select A Date",onClickFunc:initialElem}));
 
 date = [];
 
-document.body.appendChild(createHeading({id:"demo",size:2,text:"unbter"}))
+
+
 //created onclick of Select a Datet btn 
 
     
@@ -92,23 +102,13 @@ function createSelect (selObj){
 
 function createHeading (headObj){
 
-    let  heading = document.createElement("h2")
+    let  heading = headObj.size >= 1 && headObj.size <= 5 ? document.createElement("h" + headObj.size): document.createElement("h2");
 
     
- 
-    // if (headObj.size == undefined){
-    //     let heading = document.createElement("h2")
-    // }
+    if (headObj.id != undefined && document.getElementById(headObj.id) == null){
+        heading.id = headObj.id
+    }
 
-    // if (headObj.id != undefined && document.getElementById(headObj.id) == null){
-    //     heading.id = headObj.id
-    // }
-
-    // if (headObj.size != undefined){
-    //     headingSize= "h"+headObj.size
-
-    //     document.createElement(headingSize)
-    // }
     if (headObj.text != undefined){
 
         heading.innerText = headObj.text;
@@ -152,21 +152,40 @@ function selectADate (){
 
     //push selected Year into date array
    if(date.length < 3){
-       date.push(optionVal)
+       date.push(optionVal);
+      // console.log(date);
+       
+
    }
-  
+
     //console.log(optionVal);
   //  date.push(optionVal)
-    console.log(date);
+    
     //remove year select elem
     //removeElement("yearSel")
     //create month sel
     
    // document.body.appendChild(document.getElementById("monthSel"))
     console.log(optionVal);
+    console.log(date);
+    return date
     
-    
+    // if(date.length == 3){
+    //     // for (let i = 0; i < date.length; i++) {
+            
+            
+    //     // }
+    //     console.log(...date);
+        
+        
+         
+    //     document.body.appendChild(createHeading({id:"dateHeading",size:1, innerText:"ssa"}));
+    // }
+
 }
+
+
+
 
 
 //DATE ARRAY CREATION
