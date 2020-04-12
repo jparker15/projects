@@ -1,0 +1,29 @@
+body {
+    background-color: lightblue;
+    
+}
+
+h3 {
+    color: lemonchiffon;
+    font-size: 4em;
+}
+
+div {
+    display: inline;
+    align-content: center;
+}
+
+button {
+    border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 20px 26px 26px 20px;
+  
+}
+
+.leftArwBtn {
+    transform: rotate(135deg);
+}
+.rightArwBtn {
+    transform: rotate(-45deg);
+}
