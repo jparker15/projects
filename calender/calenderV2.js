@@ -88,7 +88,7 @@ function selectMonth(){
     // this.value = this[0].value;
 
     dateInfo.month = monArr.indexOf(this.value);
-
+    //prevents Month select default option from being selectable breaking the days select
     this.value = this[0].value
 
     let count = 1, days = [];
