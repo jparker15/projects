@@ -12,7 +12,7 @@ let dateInfo = {
     dayInMonths:[31,28,31,30,31,30,31,31,30,31,30,31],
     monArr:["January","February","March","April","May","June","July","August","September","October","November","December"]
 }
-//DAYS ARRAY/LOOP    
+//current MONTH DAYS ARRAY/LOOP  
 let count = 1, days = [];
 
 while(count <= dateInfo.dayInMonths[dateInfo.month]){
@@ -42,7 +42,7 @@ while(startYear <= endYear){
 // Function Calls
 createInitial()
         //function to change dates via buttons or select
-function testFunc(){
+function changeDate(){
     //console.log("this:",this,"\nthis.value",this.value);
     
  let id = this.id;
@@ -50,6 +50,10 @@ function testFunc(){
         currDay = dateInfo.day,
         currMonth = dateInfo.month,
         currYear = dateInfo.year;
+
+        checkLeapYear(currYear);
+
+        
 
         switch (id){
             case "nextDay": 
@@ -76,6 +80,45 @@ function testFunc(){
                     prevYear(currYear)
     
                 break;
+
+            case "daySelect":
+                    console.log(this.value);
+                    dateInfo.day = this.value;
+                    
+                    
+                break;
+            case "monthSelect": //dynamically change daySelect days array onchage of monthSelect
+                    console.log(this.value);
+                    dateInfo.month = dateInfo.monArr.indexOf(this.value);
+
+                    console.log(dateInfo.dayInMonths[(dateInfo.month)]);
+                    let dayDiv = document.getElementById("dayDiv");
+                    let daySelect = document.getElementById("daySelect");
+                        daySelect.disabled = false
+                    
+
+                    // dynamics days array onchange of monthSelect
+                        let counter = 0, days = [];
+                        while (counter < dateInfo.dayInMonths[(dateInfo.month)]){
+                            counter ++
+                            days.push(counter); 
+                        }
+                         
+                        console.log(days);
+                        
+                    dayDiv.removeChild(daySelect)
+
+                       daySelect = createSelect({id:"daySelect",class:"dateSelect",defText:"Select a Day",arr:days})
+                        daySelect.onchange = changeDate
+                        dayDiv.appendChild(daySelect);
+                    
+                break;
+            case "yearSelect":
+                    console.log(this.value);
+                    dateInfo.year = this.value;
+
+                break;
+                    
     
         }
 
@@ -92,15 +135,14 @@ function testFunc(){
 
     // updates front end display onclick
     document.getElementById("dateHeading").innerText = getDateText()
-
-    
-
-
-    
     //console.log(this[0].value);
 
     //this.value = this[0].value;
 }
+
+//DATE SELECTS FUNCTIONS 
+
+
 
 //PREV/NEXT  FUNCTIONALITY
 
@@ -165,13 +207,27 @@ function prevMonth (currMonth){
         dateInfo.year--
     }
 }
+
 function nextYear (currYear){
     dateInfo.year ++
 }
+
 function prevYear (currYear){
     dateInfo.year --
 }
+///////////
+function checkLeapYear (currYear){
 
+    if(currYear % 100 === 0 ? currYear % 400 === 0 : currYear % 4 === 0){
+
+        dateInfo.dayInMonths[1] = 29
+
+    }
+    else {
+        dateInfo.dayInMonths[1] = 28
+    }
+
+}
 
 function createInitial (){
     let initDiv = createDivElem({id:"initialDiv",class:"initDiv"}),
@@ -189,41 +245,42 @@ function createInitial (){
         initDiv.appendChild(dayDiv),
         initDiv.appendChild(yearDiv);
 
-    monthDiv.appendChild(createButton({id:"prevMonth",class:"leftArwBtn",onClickFunc:testFunc}))
-    monthDiv.appendChild(createButton({id:"nextMonth",class:"rightArwBtn",onClickFunc:testFunc}))
+    monthDiv.appendChild(createButton({id:"prevMonth",class:"leftArwBtn",onClickFunc:changeDate}))
+    monthDiv.appendChild(createButton({id:"nextMonth",class:"rightArwBtn",onClickFunc:changeDate}))
     let monthSelect =createSelect({id:"monthSelect",class:"dateSelect",defText:"Select a Month",arr:dateInfo.monArr})
-        monthSelect.onchange = testFunc    
+        monthSelect.onchange = changeDate
     monthDiv.appendChild(monthSelect);
 
     dayDiv.appendChild(createButton({id:"prevDay",class:"leftArwBtn",
-    onClickFunc:testFunc}))
+    onClickFunc:changeDate}))
     dayDiv.appendChild(createButton({id:"nextDay",class:"rightArwBtn",
-    onClickFunc:testFunc}))
+    onClickFunc:changeDate}))
     let daySelect = createSelect({id:"daySelect",class:"dateSelect",defText:"Select a Day",arr:days})
-        daySelect.onchange = testFunc
+        daySelect.onchange = changeDate
+        daySelect.disabled = true
     dayDiv.appendChild(daySelect);
 
-    yearDiv.appendChild(createButton({id:"prevYear",class:"leftArwBtn",onClickFunc:testFunc}))
-    yearDiv.appendChild(createButton({id:"nextYear",class:"rightArwBtn",onClickFunc:testFunc}))
+    yearDiv.appendChild(createButton({id:"prevYear",class:"leftArwBtn",onClickFunc:changeDate}))
+    yearDiv.appendChild(createButton({id:"nextYear",class:"rightArwBtn",onClickFunc:changeDate}))
     let yearSelect = createSelect({id:"yearSelect",class:"dateSelect",defText:"Select a Year",arr:years})
-        yearSelect.onchange = testFunc
+        yearSelect.onchange = changeDate
     yearDiv.appendChild(yearSelect)    
     // createHeading({id:"titleHeading",text:"I title therefore I am"})
     // createHeading({id:"titleHeading",text:`Month: ${monArr[currentDate.getMonth()]} / Day:${currentDate.getDate()} / Year:${currentDate.getFullYear()}`}) 
 
-    createButton({id:"prevMonth",class:"leftArwBtn",onClickFunc:testFunc})
+    createButton({id:"prevMonth",class:"leftArwBtn",onClickFunc:changeDate})
 
-    createButton({id:"nextMonth",class:"rightArwBtn",onClickFunc:testFunc})
+    createButton({id:"nextMonth",class:"rightArwBtn",onClickFunc:changeDate})
 
     createButton({id:"prevDay",class:"leftArwBtn",
-    onClickFunc:testFunc})
+    onClickFunc:changeDate})
 
     createButton({id:"nextDay",class:"rightArwBtn",
-    onClickFunc:testFunc})
+    onClickFunc:changeDate})
 
-    createButton({id:"prevYear",class:"leftArwBtn",onClickFunc:testFunc})
+    createButton({id:"prevYear",class:"leftArwBtn",onClickFunc:changeDate})
 
-    createButton({id:"nextYear",class:"rightArwBtn",onClickFunc:testFunc})
+    createButton({id:"nextYear",class:"rightArwBtn",onClickFunc:changeDate})
    
 }
 
@@ -237,7 +294,7 @@ function getDateText (){
     // month = dateInfo.monArr[dateInfo.month] > 9 ? dateInfo.month : "0" + dateInfo.month;
     month = dateInfo.monArr[dateInfo.month]
 
-    console.log(dateInfo.monArr[dateInfo.month]);
+    //console.log(dateInfo.monArr[dateInfo.month]);
     
     string = month + "/" + day + "/" + dateInfo.year;
 
@@ -357,10 +414,5 @@ function createDivElem (divObj) {
     }
 
     return div
-    
-}
-
-function checkLeapYear (year){
-    console.log("test");
     
 }
