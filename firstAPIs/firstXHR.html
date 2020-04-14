@@ -1,0 +1,74 @@
+<!-- XMLHttpRequest -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+        <div id="names"></div>
+
+        <script >
+
+            let xhr = new XMLHttpRequest(); // 1. create the XHR object
+
+            // anonymouse function
+            // xhr.onabort = error => {
+            //     console.log(`the request has been abort`,error,error);
+            // }
+            // xhr.onabort
+
+            // xhr.onabort = (err) => {
+            //     console.log(`the request has been abort`); 
+            // } //https://jsonplaceholder.typicode.com/users || "https://api.github.com/users"
+                let apiUrl = "https://api.github.com/users", 
+                    reqMethod = "GET", //research different request methods
+                    asyncBool = true;
+                
+                xhr.open(reqMethod,apiUrl,asyncBool) //params not optional (url: the API address where the request is sent) 
+                                            //2. open the channel for the request
+        
+                xhr.onload = () =>{ //3. a function runs when the response is recieved from the server
+
+                    let rawResponseData = xhr.responseText;
+                    // converts data from strings to an object
+                    let parsedData = JSON.parse(rawResponseData)
+
+                    //console.log(parsedData);
+                    
+                    // parsedData.forEach(element => {
+                        
+                    // });
+                    
+                    for(let i = 0; i < 10; i++){
+                        console.log(parsedData[i]);
+
+                        let userInfo = parsedData[i];
+
+                        displayAUser(userInfo)
+                        
+                    }
+
+
+                }
+
+                xhr.send() //params not optional //stores info being sent in request // 4. finalizes the "open" method and send data along with hte request when neeeded
+
+                /// Display 10 users and three properties 
+
+                //
+
+                function displayAUser (userInfo){
+
+                    let div = document.createElement("div");
+
+                    document.body.appendChild(div);
+
+                }
+
+        </script>
+    
+</body>
+</html>
