@@ -1,0 +1,36 @@
+body {
+    background-color: aquamarine;
+}
+
+#allUsers {
+    background: khaki;
+
+    display: grid;
+
+    grid-template-columns: auto auto auto auto;
+}
+
+.userDiv {
+    display: flex;
+
+    flex-direction: column;
+    
+    text-align: center;
+
+    margin: 1%;
+}
+
+.userDiv img {
+    margin: auto;
+    width: 200px;
+    height: 200px;
+}
+
+.userDiv h2 {
+    background-color: white;
+    margin: auto;
+}
+.userDiv a {
+    background-color: cyan;
+    margin: auto;
+}
