@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+
+    <script>
+        
+
+        let xhr = new XMLHttpRequest(); 
+            //requestMethods there's a variety of them
+        let reqMethod = "GET",
+            //API URL not accessed by enduser
+            endpoint = "https://api.github.com/users", 
+            //?????????
+            asyncBool = true;
+
+        
+            xhr.open("GET",endpoint) //init api request
+
+
+            xhr.onload = () => {  //the function called when an XMLHttpRequest transaction completes successfully.
+
+                //returns the text received from a server following a request being sent.
+                let xhrResponse = xhr.responseText;
+
+                /*When receiving data from a web server, the data is always a string.
+                Parse the data with JSON.parse(), and the data becomes a JavaScript object.*/
+                let parsedResponse = JSON.parse(xhrResponse);
+
+
+                //console.log(parsedResponse);
+
+                for (let i = 0; i < parsedResponse.length; i++) {
+                    
+                    let user = parsedResponse[i]; // objects with user properties
+
+                   // console.log(user);
+
+                    displayUser(user)
+
+
+                }
+                
+                
+                
+
+
+            }
+            xhr.send()
+
+            //console.log(xhr);
+
+            function displayUser(userObj){
+                let heading = document.createElement("h2"),
+                    userLink = document.createElement("a"),
+                    button = document.createElement("button");
+
+
+                if (userObj.login != undefined){
+                  heading.innerText = userObj.login;  
+                }
+
+                if (userObj.url != undefined){
+
+                    userLink.href = userObj.html_url;
+                    userLink.innerText = "GitHub Page"
+                }
+
+                button.innerText = "Get MOre InFO on" + userObj.login;
+
+                button.onclick = () => getInfoReq(userObj.login)
+
+
+                document.body.appendChild(heading);
+                document.body.appendChild(userLink);
+                document.body.appendChild(button);
+                
+            }
+
+            function getInfoReq (userName) {
+
+                console.log(userName);
+
+                //create an instance of XHR Object
+
+                let xhr = new XMLHttpRequest();
+
+                //open channel to api or init req call
+
+                xhr.open("GET",`https://api.github.com/users/${userName}`);
+
+                xhr.onload = () =>{
+
+                    let stringDate = xhr.responseText;
+
+                    let res = JSON.parse(stringDate);
+
+                    console.log(res);
+                    
+
+                }
+
+                xhr.send();
+                
+            }
+            
+    </script>
+</body>
+</html>
