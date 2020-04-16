@@ -1,0 +1,10 @@
+body {
+    background-color: black;
+}
+.userDiv {
+    background-color: gray;
+}
+.userDiv img {
+    height: 250px;
+    width: 250px;
+}

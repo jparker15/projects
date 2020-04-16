@@ -13,32 +13,32 @@ function displayUser(user){
     //console.log(user);
 
     //create a div to store users elem
-    let div = createDivElem({class:"userDiv"})
+    let div = createDivElem({class:"userDiv"});
 
     //heading for the login
-    let heading = createHeading({text:`${user.login}`})
+    let heading = createHeading({text:`${user.login}`});
 
     //img for profile pice
-   let img = createImg({src: user.avatar_url, alt: `${user.login} Profile Pic`})
+   let img = createImg({src: user.avatar_url, alt: `${user.login} Profile Pic`});
 
     //link to their github
-    let link = createHyperLink({hrefLink: user.html_url ,text:` ${user.login} GitHub Profile`, openNewTab:true})
+    let link = createHyperLink({hrefLink: user.html_url ,text:` ${user.login} GitHub Profile`, openNewTab:true});
 
     //button that show more info (append more info to div)
 
-    let button = createButton({text:`See more info on ${user.login}`,onClickFunc:displayInfo})
+    let button = createButton({text:`See more info on ${user.login}`,onClickFunc:displayInfo});
 
-    div.appendChild(heading)
-    div.appendChild(img)
-    div.appendChild(link)
-    div.appendChild(button)
+    div.appendChild(heading);
+    div.appendChild(img);
+    div.appendChild(link);
+    div.appendChild(button);
 
-    document.getElementById("allUsers").appendChild(div)
+    document.getElementById("allUsers").appendChild(div);
 
  
     
 }
-
+        //onclick of more info button
 function displayInfo(){
     //make the request for a specific user to get more detailed info on their account
 
