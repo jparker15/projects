@@ -54,7 +54,7 @@ window.onload = () => {
 function startSelection (){
     //console.log(this);
 
-    this.style.display = "none"; //hides buttons with deleting it 
+    this.style.display = "none"; //hides buttons without deleting it 
 
     let yearSel = document.getElementById("yearSelect");
 
@@ -193,11 +193,29 @@ function reqPicOfDay (){
 
             console.log(response);
 
-            displayApod(response)
+            displayApod(response);
+
+            displayInfo(response);
             
         }
 
         xhr.send();
+}
+
+function displayInfo (data) {
+    /* display date of picture 
+        title
+        explanation
+    
+    */
+
+    let datePOD = createHeading({id:"dateHeading",text:`${data.date}`,size:1}),
+         title = createHeading({id:"titleHeading",text:`${data.title}`,size:5}),
+         explanation = createPtag({text:`${data.explanation}`});
+
+         document.body.appendChild(datePOD);
+         document.body.appendChild(title);
+         document.body.appendChild(explanation);
 }
 
 function displayApod (data){
@@ -231,6 +249,34 @@ function displayApod (data){
             document.body.appendChild(img);
     }
 
+}
+
+function createPtag (paraObj){
+    let pTag = document.createElement("p")
+
+    if(paraObj.text != undefined){
+        pTag.innerText = paraObj.text;
+    }
+    if (paraObj.align != undefined){
+        pTag.align = paraObj.align;
+    }
+
+    return pTag
+}
+
+function createDivElem (divObj) {
+    let div = document.createElement("div");
+
+    if (divObj.id != undefined && document.getElementById(divObj.id) == null){
+        div.id = divObj.id;
+    }
+
+    if (divObj.class != undefined){
+        div.className = divObj.class;
+    }
+
+    return div
+    
 }
 
 function createSelect (selObj){
@@ -270,4 +316,22 @@ function createSelect (selObj){
 
     return select
     
+}
+
+function createHeading (headObj){
+
+    let  heading = headObj.size >= 1 && headObj.size <= 5 ? document.createElement("h" + headObj.size): document.createElement("h2");
+
+    
+    if (headObj.id != undefined && document.getElementById(headObj.id) == null){
+        heading.id = headObj.id
+    }
+
+    if (headObj.text != undefined){
+
+        heading.innerText = headObj.text;
+    }
+
+    return heading
+        
 }

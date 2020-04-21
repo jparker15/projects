@@ -2,6 +2,35 @@ body {
     background-color: black;
 }
 
+img {
+    height: 400px;
+    width: auto;
+}
+
 button {
     size: 25ex;
+    background-color: hotpink;
+}
+
+select {
+    background-color: lawngreen;
+    position: sticky;
+    left:0 ;
+
+}
+
+h1{
+    color: lemonchiffon;
+}
+h5{
+    color: lightcoral;
+}
+
+p{
+    color: lightpink;
+    background-color: black;
+    font-size: small;
+
+    word-wrap: normal;
+
 }
