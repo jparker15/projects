@@ -1,11 +1,13 @@
 body {
     background-color: black;
+    background-image: url(https://media.giphy.com/media/RHIKETUlUINYvV7CAO/giphy.gif);
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
 }
 
-img {
-    height: 400px;
-    width: auto;
-}
 
 button {
     size: 25ex;
@@ -14,12 +16,10 @@ button {
 
 select {
     background-color: lawngreen;
-    position: sticky;
-    left:0 ;
-
+    
 }
 
-h1{
+h2{
     color: lemonchiffon;
 }
 h5{
@@ -33,4 +33,35 @@ p{
 
     word-wrap: normal;
 
+}
+
+#nasaPOTD {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 10%;
+}
+
+#nasaPOTD div {
+    width: 700px;
+    margin: auto;
+}
+
+#nasaPOTD img {
+    width:500px;
+   object-fit: scale-down;
+
+   margin: auto;
+
+}
+
+#nasaPOTD h4,h5{
+    color: white;
+     background-color: grey;
+
+    margin-left: 45%;
+    margin-right: 45%;
+    padding: 10px;
+    border-radius: 10px;
 }

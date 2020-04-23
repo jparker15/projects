@@ -10,6 +10,19 @@ myKey = "umxMJFucQ3BuorALUJPPW47Zs7osVQ5Pu0tX0TdK";
 
 window.onload = () => {
 
+    let heading = createHeading({
+        size: 2,
+        text: `Welcome to Nasa's Photo Of The Day`,
+        id: 'headingID'
+    });
+
+    let mainDiv = createDivElem({id:"mainDiv"}),
+
+        nasaDiv = createDivElem({id:"nasaPOTD"});
+
+        document.body.appendChild(mainDiv);
+        document.body.appendChild(nasaDiv);
+
      // make the first NASA req to get todays picture
 
      // make the button elm, make the year select elm
@@ -22,7 +35,8 @@ window.onload = () => {
 
      startSelectBtn.onclick = startSelection;
 
-     document.body.appendChild(startSelectBtn);
+     mainDiv.appendChild(heading);
+     mainDiv.appendChild(startSelectBtn);
 
      // create year select elem
 
@@ -43,13 +57,15 @@ window.onload = () => {
         onchangeFunc:yearSelected
     });
 
-    document.body.appendChild(yearSelect);
+    mainDiv.appendChild(yearSelect);
 
     yearSelect.style.display = "none";
 
+    reqPicOfDay()
+
 }
 
-
+//functions for selecting a date
 
 function startSelection (){
     //console.log(this);
@@ -92,6 +108,12 @@ function yearSelected () {
         
     }
 
+    if(document.getElementById("monthSelect") != null){
+        let child = document.getElementById("monthSelect");
+
+        document.getElementById("mainDiv").removeChild(child)
+    }
+
     let monthSelect = createSelect({
         id:"monthSelect",
         defText:"Select A Month",
@@ -99,7 +121,7 @@ function yearSelected () {
         arr:monthArr
     });
 
-    document.body.appendChild(monthSelect);
+    document.getElementById("mainDiv").appendChild(monthSelect);
 }
 
 function monthSelected(){
@@ -120,6 +142,7 @@ function monthSelected(){
     let daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 
     let daysArr = [],count = 0;
+    console.log(new Date().getMonth() +1, month );
 
 
     while (daysInMonth[month -1] > count){
@@ -131,10 +154,18 @@ function monthSelected(){
         daysArr.splice(0,15)
     }
     
-    else if (dateInfo.year == new Date().getFullYear && month == new Date().getMonth() + 1){
-        console.log(daysArr.splice( new Date().getDay(),daysArr.length - 1));
+    
+    else if (dateInfo.year == new Date().getFullYear() && month == new Date().getMonth() +1 ){
+        console.log(daysArr.splice( new Date().getDate(),daysArr.length - 1));
         
-        daysArr.splice( new Date().getDay(),daysArr.length - 1)
+        daysArr.splice( new Date().getDate(), daysArr.length - 1)
+    }
+
+    if (document.getElementById("daySelect") != null){
+        let child = document.getElementById("daySelect");
+
+        
+         document.getElementById("mainDiv").removeChild(child);
     }
     
 
@@ -146,7 +177,7 @@ function monthSelected(){
 
     })
 
-    document.body.appendChild(daySelect);
+    document.getElementById("mainDiv").appendChild(daySelect);
 }
 
 function daySelected(){
@@ -171,6 +202,8 @@ function daySelected(){
     reqPicOfDay()
     
 }
+
+
 // XHR FUNCTION
 function reqPicOfDay (){
 
@@ -195,30 +228,17 @@ function reqPicOfDay (){
 
             displayApod(response);
 
-            displayInfo(response);
             
         }
 
         xhr.send();
 }
 
-function displayInfo (data) {
-    /* display date of picture 
-        title
-        explanation
-    
-    */
 
-    let datePOD = createHeading({id:"dateHeading",text:`${data.date}`,size:1}),
-         title = createHeading({id:"titleHeading",text:`${data.title}`,size:5}),
-         explanation = createPtag({text:`${data.explanation}`});
-
-         document.body.appendChild(datePOD);
-         document.body.appendChild(title);
-         document.body.appendChild(explanation);
-}
 
 function displayApod (data){
+
+    let nasaPOTD = document.getElementById('nasaPOTD')
 
     if (data.code != undefined){
 
@@ -238,7 +258,7 @@ function displayApod (data){
     }
 
     else{
-        document.body.style.backgroundImage = `url(` + data.url +`)`;
+        nasaPOTD.innerHTML = '';
 
         let img = document.createElement("img");
 
@@ -246,10 +266,32 @@ function displayApod (data){
 
             img.alt = "loading image";
 
-            document.body.appendChild(img);
+        let title = createHeading({size:4,text:data.title})
+
+        let div = document.createElement("div");
+
+        let explain = createPtag({text:data.explaination,id:"exp"});
+
+        let copyrightOwner = data.copyright == undefined ? "Public Domain" : "©" + data.copyright;
+
+        let copyrightText = createHeading({size:5,text:copyrightOwner});
+
+        nasaPOTD.appendChild(div);
+        nasaPOTD.appendChild(title);
+        nasaPOTD.appendChild(copyrightText);
+
+        div.appendChild(img);
+        div.appendChild(explain);
+
+        img.onload = () => {
+            explain.style = `transform:translate(-50%, ${- img.clientHeight}px );`;
+            explain.style.display = "block";
+        }
     }
 
 }
+
+// element creation
 
 function createPtag (paraObj){
     let pTag = document.createElement("p")
