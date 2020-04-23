@@ -1,17 +1,11 @@
-firstXHR.html -
-    XMLHttpReq:an API (application programming interface) in the form of an object
-whose methods transfer data between a web browser and a web server. How to make a XHR: 1. Create a new instance of XHR (let xhr = new XMLHttpRequest()) 2. Open the channel for the req (xhr.open(reqMethod,endpoint(API URL),asyncbool) PARAMS REQUIRED) 3. Callback xhr.onload = () =>{} function called when a XHR transcation completes successfully 4. Finalize the "open" method and send data alone with req when needed: xhr.send() PARAMS REQUIRED
+dosAPIsProj - project using two api's displaying both's data
 
-request an array of Objects containing  usernames info and logs it to console
+gitUsers - api.github users
 
+jphUsers - api.jsonplaceholder users
 
+NASA - folder containing APIs that use NASA data
 
-2XHR.html - 
-    Second use of XHR appends username, GITHUB link, & a button with onclick (console log more User info) to DOM for each user object in array
+randomFacts - display random facts
 
-
-index.html,gitUsers.css,gitUsers.js -
-    Building on previous APIs made so far add user profile pic, add CSS file for styling, move script to seperate JS file
-
-
-
+singleFiles - folder of single file projects
