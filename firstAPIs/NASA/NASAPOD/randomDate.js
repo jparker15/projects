@@ -5,6 +5,7 @@ let date = {
   year:new Date().getFullYear(),
   month:new Date().getMonth() + 1, //zero based numbering
   day:new Date().getDate(),
+  dayInMonths:[31,28,31,30,31,30,31,31,30,31,30,31]
 
 }
 
@@ -21,16 +22,28 @@ let maxYear = new Date().getFullYear(); //2020
 
 //FUNCTION CALLS
 
-// randomYear(minYear,maxYear);
-randomMonth(1,12);
-randomDay (31,31);
+//  randomYear(minYear,maxYear);
+// randomMonth(1,12);
+// randomDay (1,date.dayInMonths[date.month - 1]);
+
+randomDate();
+console.log(date);
+
+
+function randomDate () {
+  
+ randomYear(minYear,maxYear);
+ randomMonth(1,12);
+ randomDay (1,date.dayInMonths[date.month - 1]);
+}
+
 
 // random year between 1995 & 2020
 function randomYear (min, max){
 
- // date.year = 1995;
+  //date.year = 2016;
   date.year = (Math.floor(Math.random() * (max - min + 1)) + min);
-  console.log(date);
+  //console.log(date);
   
     
        
@@ -48,14 +61,14 @@ function randomMonth (min,max){
     min = 6;
   }
   // check for leap year 
+  //date.month = 2
 
-
-  //date.month = 6
-   date.month = (Math.floor(Math.random() * (max - min + 1)) + min);
-  console.log(date);
+  date.month = (Math.floor(Math.random() * (max - min + 1)) + min);
+  //console.log(date);
   
 }
 
+//console.log(date.dayInMonths[date.month - 1]);
 
 
 //random day between 1 - 31
@@ -66,30 +79,42 @@ function randomDay (min,max){
   }
 
   // set days for each month 
-
-  
-  
-
-  let dayInMonths = [31,28,31,30,31,30,31,31,30,31,30,31];
-  for (let i = 0; i < dayInMonths.length; i++) {
-    console.log(date.month);
-
-    console.log(dayInMonths[i]);
-    
-    // if (date.month-1 == dayInMonths[i]){
-
-    //  max = dayInMonths[i];
-    //  min = max;
-    // }
+  if (date.month == date.dayInMonths[date.month - 1]){
+    max = date.dayInMonths[date.month - 1];
     
   }
-  
+
+
+  // account for leap years 
+
   
 
+  if (leapYear(date.year) == true && date.month == 2){
+
+    date.dayInMonths[date.month -1 ] = 29;
+
+  }
+  
+ // console.log(date.dayInMonths);
+  
 
   date.day = (Math.floor(Math.random() * (max - min + 1)) + min);
-  console.log(date);
+  //console.log(date);
   
 }
 
 
+function leapYear(year){
+
+ if ( ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) ){
+
+  return true;
+ }
+
+ else {
+
+   return false;
+ 
+ }
+   
+}
