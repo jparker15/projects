@@ -2,6 +2,7 @@ let dateInfo = {
     year:new Date().getFullYear(),
     month:new Date().getMonth() + 1,
     day:new Date().getDay(),
+    dayInMonths:[31,28,31,30,31,30,31,31,30,31,30,31]
 },
 
 myKey = "umxMJFucQ3BuorALUJPPW47Zs7osVQ5Pu0tX0TdK";
@@ -28,15 +29,20 @@ window.onload = () => {
      // make the button elm, make the year select elm
 
      let startSelectBtn = document.createElement("button");
+     let randomBtn = document.createElement("button");
 
      startSelectBtn.id = "startSelBtn";
+     randomBtn.id = "randomBtn";
 
      startSelectBtn.innerText = "Select A Date";
+     randomBtn.innerText = "Select A Random Date";
 
      startSelectBtn.onclick = startSelection;
+     randomBtn.onclick = randomDate;
 
      mainDiv.appendChild(heading);
      mainDiv.appendChild(startSelectBtn);
+     mainDiv.appendChild(randomBtn);
 
      // create year select elem
 
@@ -202,6 +208,94 @@ function daySelected(){
     reqPicOfDay()
     
 }
+
+//RANDOM DAY FUNCTION
+
+  let minYear = 1995;
+  let maxYear = new Date().getFullYear();   
+
+  
+
+
+function randomDate () {
+  
+ randomYear(minYear,maxYear);
+ randomMonth(1,12);
+ randomDay (1,dateInfo.dayInMonths[dateInfo.month - 1]);
+ console.log(dateInfo);
+ reqPicOfDay()
+ 
+}
+
+function randomYear (min, max){
+
+    //date.year = 2016;
+    dateInfo.year = (Math.floor(Math.random() * (max - min + 1)) + min);
+    //console.log(date);
+    
+      
+         
+  }
+
+  function randomMonth (min,max){
+
+    //June 16th, 1995 first day of APOD only months after june set minimum range to 6 
+  
+    if (dateInfo.year == 1995){
+      min = 6;
+    }
+    // check for leap year 
+    //date.month = 2
+  
+    dateInfo.month = (Math.floor(Math.random() * (max - min + 1)) + min);
+    //console.log(date);
+    
+  }function randomDay (min,max){
+    // sets day range from 16th to 31st
+    if (dateInfo.year == 1995 && dateInfo.month == 6){
+      min = 16;
+    }
+  
+    // set days for each month 
+    if (dateInfo.month == dateInfo.dayInMonths[dateInfo.month - 1]){
+      max = dateInfo.dayInMonths[dateInfo.month - 1];
+      
+    }
+  
+  
+    // account for leap years 
+  
+    
+  
+    if (leapYear(dateInfo.year) == true && dateInfo.month == 2){
+  
+      dateInfo.dayInMonths[dateInfo.month -1 ] = 29;
+  
+    }
+    
+   // console.log(date.dayInMonths);
+    
+  
+    dateInfo.day = (Math.floor(Math.random() * (max - min + 1)) + min);
+    //console.log(date);
+    
+  }
+  
+  
+  function leapYear(year){
+  
+   if ( ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) ){
+  
+    return true;
+   }
+  
+   else {
+  
+     return false;
+   
+   }
+     
+  }
 
 
 // XHR FUNCTION
