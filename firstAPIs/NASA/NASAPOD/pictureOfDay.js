@@ -38,7 +38,7 @@ window.onload = () => {
      randomBtn.innerText = "Select A Random Date";
 
      startSelectBtn.onclick = startSelection;
-     randomBtn.onclick = randomDate;
+      randomBtn.onclick = randomDate;
 
      mainDiv.appendChild(heading);
      mainDiv.appendChild(startSelectBtn);
@@ -364,7 +364,7 @@ function displayApod (data){
 
         let div = document.createElement("div");
 
-        let explain = createPtag({text:data.explaination,id:"exp"});
+        let explain = createPtag({text:data.explanation,id:"exp"});
 
         let copyrightOwner = data.copyright == undefined ? "Public Domain" : "©" + data.copyright;
 

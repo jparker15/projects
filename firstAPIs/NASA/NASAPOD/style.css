@@ -28,7 +28,7 @@ h5{
 
 p{
     color: lightpink;
-    background-color: black;
+   
     font-size: small;
 
     word-wrap: normal;
@@ -52,7 +52,7 @@ p{
     width:500px;
    object-fit: scale-down;
 
-   margin: auto;
+   margin: auto; 
 
 }
 
@@ -64,4 +64,52 @@ p{
     margin-right: 45%;
     padding: 10px;
     border-radius: 10px;
+}
+
+#nasaPOTD p{
+    position: absolute;
+
+    color: white;
+
+    width: 400px;
+
+    left: 50%;
+    right: 50%;
+    
+    transition: ease-in-out .1s;
+
+    padding: 10px;
+    border-radius: 10px;
+
+    position: absolute;
+
+    color: white;
+
+    width: 400px;
+
+    left: 50%;
+    right: 50%;
+    
+    transition: ease-in-out .1s;
+
+    padding: 10px;
+    border-radius: 10px;
+
+    border: solid 2px violet;
+
+    display: none;
+
+    opacity: 0;
+
+
+}
+
+#nasaPOTD div {
+    width:700px;
+    margin: auto;
+
+}
+
+#nasaPOTD div:hover p {
+    opacity: 1;
 }
