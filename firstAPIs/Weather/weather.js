@@ -1,6 +1,8 @@
 window.onload = () => {
     
     let div = document.createElement("div");
+    let header = document.createElement("h1");
+        header.innerText = "Open Weather Map API";
 
     document.body.appendChild(div);
 
@@ -13,18 +15,29 @@ window.onload = () => {
     button.id = "defBtn";
 
     let cityNameInput = document.createElement("input");
-        console.log(cityNameInput);
+       // console.log(cityNameInput);
         
 
         cityNameInput.placeholder = "Enter A City Name OR Zip Code";
         cityNameInput.spellcheck = true;
         cityNameInput.id = "cityInput";
 
+
+        //EventListener for Enter Key  //executes function when user releases a key
+        cityNameInput.addEventListener("keyup", function(event){
+            // 13 = "enter" key
+            if(event.keyCode === 13){
+                //trigger the button elem with a click
+                document.getElementById("defBtn").click();
+            }
+        });
+
+    div.appendChild(header);
     div.appendChild(cityNameInput);
     div.appendChild(button);
     //reqAPI()
 
-    console.log("tests");
+   // console.log("tests");
     
 }
 
@@ -90,14 +103,14 @@ function reqAPI() {
     xhr.onload = () => {
         let stringData = xhr.responseText;
 
-        console.log(stringData);
+       // console.log(stringData);
         
 
        let response = JSON.parse(stringData);
 
         console.log(response)
 
-       // displayInfo(response)
+        displayInfo(response)
 
     }
 
@@ -107,15 +120,38 @@ function reqAPI() {
 
 function displayInfo (data){
     
-    let pTag = document.createElement("p");
-    console.log(this);
+    let inputName = createPtag({id:"cityName",text:`City:${data.name}`}),
+  //  console.log(this);
+        temptures = createPtag({id:"temps",text:`Feels Like: ${data.main.feels_like}°F \n Actual Temp: ${data.main.temp}°F\n Humidity: ${data.main.humidity}`}),
+
+        weatherWind = createPtag({id:"weatherWind", text:`Weather: ${data.weather.main}\n Description: ${data.weather.description}\n Wind Speed: ${data.wind.speed}`})
 
     const userInput = document.getElementById("cityInput")
 
-    console.log(userInput.value);
+   // console.log(userInput.value);
+
+   let infoDiv = document.createElement("div");
+        infoDiv.id = "info";
+
+  
+        
+
 
     
     
+    document.body.appendChild(infoDiv);
+    infoDiv.appendChild(inputName); 
+    infoDiv.appendChild(temptures);
+    infoDiv.appendChild(weatherWind);
+}
 
-  //  document.body.appendChild(pTag);
+function createPtag(pTagObj){
+    let pTag = document.createElement("p");
+
+       if (pTagObj.id != undefined && document.getElementById(pTagObj.id) == null) {
+           pTag.id = pTagObj.id;
+       }
+       pTag.innerText = pTagObj.text != undefined ? pTagObj.text : "Lorem Ipsum Salt";
+
+       return pTag
 }
