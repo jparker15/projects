@@ -1,4 +1,4 @@
-const apiOWKey = `1d2c94df8e139aafee899c78388a7063`;
+const apiOWKey = ``;
 
 //MAIN HTML ELEMENTS CREATION
 window.onload = () => {
