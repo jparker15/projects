@@ -1,3 +1,15 @@
 body{
     background-color: lightgreen;
 }
+
+#crDiv{
+    padding-top: 20px;
+}
+
+input {
+    background-color: lightpink;
+}
+
+select {
+    background-color: lightsalmon;
+}
