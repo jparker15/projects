@@ -1,5 +1,8 @@
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 
+    //check that user has input a city name
+let userProvidedData = false;
+
 let dateInfo = {
 
     year: new Date().getFullYear(),
@@ -109,6 +112,8 @@ function monthSelected() {
 
 function daySelected() {
 
+    userProvidedData = true;
+    
     this.style.display = 'none';
 
     let day = this.value; 
@@ -122,5 +127,7 @@ function daySelected() {
 
     document.getElementById("dateText").innerText = `Date Selected: ${dateInfo.month}-${dateInfo.day}-${dateInfo.year}`;
 
+        //display button after a date has been selected
+        testUserSubmit()
 
 }
