@@ -1,3 +1,5 @@
+//REMOVE ME
+let apiKey = "LDlbvkBV";
 
 
 //MAIN HTML ELEMENTS CREATION
@@ -164,8 +166,11 @@ function searchStationReq(){
                     let stationSel = document.getElementById("stationSelect");
 
                     let stationObj = {
-                        id: this.value,
+                        id: stationSel.value,
                     }
+
+                    console.log(stationObj);
+                    
 
                     reqHistData(stationObj);
 
@@ -220,19 +225,64 @@ function reqHistData(stationObj){
         xhr.open ("GET",endpoint,true);
 
         xhr.onload = () =>{
+            // console.log("test");
 
+            let weatherDiv = document.getElementById("weatherDiv");
+            
             let parsedData = JSON.parse(xhr.responseText); //return an object w/ an array of objects, each object is a station this api has historicial info on
 
-            //console.log(parsedData.data);
+            console.log(parsedData.data);
             // if parsedData.data is an empty array, the date provided is out side thelimits of that station
 
             let weatherInfo = parsedData.data[0];
+
+                console.log(weatherInfo.date);
+                
 
             if(weatherInfo != undefined){
 
                 // display info to the frontend
 
                 //account for the info that may not be available i.e. pressure,wind direction, sunshine, etc
+
+                let temperature = weatherInfo.temperature,
+                    tempHeading = createHeading({text:`Temp: ${temperature}°C`});
+
+                    weatherDiv.appendChild(tempHeading);
+
+                    if (weatherInfo.temperature_max != null && weatherInfo.temperature_min != null){
+                        let tempRange = createHeading({text:`Temp Max: ${weatherInfo.temperature_max}°C \nTemp Min: ${weatherInfo.temperature_min}°C`, size:5});
+                            weatherDiv.appendChild(tempRange)
+                    }
+
+                    if (weatherInfo.precipitation != null){
+                        let precipitation = createHeading({text:`Precipitation: ${weatherInfo.precipitation} mm`})
+
+                        weatherDiv.appendChild(precipitation);
+                    }
+
+                    if (weatherInfo.pressure != null){
+                        let airPressure = createHeading({text:`Air Pressure: ${weatherInfo.pressure} hPa`})
+
+                       weatherDiv.appendChild(airPressure);
+                    }
+
+                    if (weatherInfo.windspeed != null){
+                        let windspeed = createHeading({text:`Wind Speed: ${weatherInfo.windspeed} km/h`})
+
+                        weatherDiv.appendChild(windspeed)
+                            if(weatherInfo.peakgust != null){
+
+                                let peakGust = createHeading({text:`PEAK GUST: ${weatherInfo.peakGust} KM/H`,size:5});
+                                weatherDiv.appendChild(peakgust);
+
+                            }
+                    }
+
+
+
+
+
             }
 
             else {
