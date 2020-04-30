@@ -1,6 +1,12 @@
 body{
     background-color: lightgreen;
 }
+h1{
+    text-align: center;
+}
+div{
+    text-align: center;
+}
 
 #crDiv{
     padding-top: 20px;
