@@ -19,3 +19,13 @@ input {
 select {
     background-color: lightsalmon;
 }
+
+#weatherDiv div{
+    background-color: lightgoldenrodyellow;
+
+    flex-direction: column-reverse;
+}
+
+#weatherDiv button {
+    color: red;
+}
