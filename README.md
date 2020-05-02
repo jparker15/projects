@@ -17,12 +17,12 @@ End Date : 4/6/2020
 
 <!-- **
 Date global object
-<!-- this --> keyword -->
+<!-- this  keyword -->
 
 Start Date: 4/7/2020
 End Date: 4/13/2020
 
-#3. firstAPIs 
+# 3. firstAPIs 
 
 ### folder containing first uses of APIs 
 
