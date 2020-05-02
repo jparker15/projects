@@ -121,7 +121,11 @@ function searchStationReq(){
             else if (parsedData.data.length == 1){
                 // request historical info for station found
 
-                reqHistData(parsedData.data[0])
+                let stationObj = parsedData.data[0];
+
+                    stationObj.name = `${stationObj.name}, ${stationObj.country}`;
+
+                reqHistData(stationObj)
                 
                 
             }
@@ -167,9 +171,9 @@ function searchStationReq(){
 
                     let stationObj = {
                         id: stationSel.value,
+                        name: stationSel.options[stationSel.selectedIndex].text,
                     }
 
-                    console.log(stationObj);
                     
 
                     reqHistData(stationObj);
@@ -236,7 +240,7 @@ function reqHistData(stationObj){
 
             let weatherInfo = parsedData.data[0];
 
-                console.log(weatherInfo.date);
+               // console.log(weatherInfo.date);
                 
 
             if(weatherInfo != undefined){
@@ -245,7 +249,155 @@ function reqHistData(stationObj){
 
                 //account for the info that may not be available i.e. pressure,wind direction, sunshine, etc
 
-                let temperature = weatherInfo.temperature,
+               displayWeatherData(weatherInfo, stationObj)
+
+            }
+
+            else {
+                alert(`Weather Data Not Available for this Location at the Date Provided`)
+            }
+
+        }
+
+        xhr.send();
+
+}
+
+
+function displayWeatherData(weather, station){
+
+   // console.log(station);
+
+    let stationDiv = createDivElement({}),
+        weatherDiv = document.getElementById("weatherDiv");
+
+    let stationHeading = createHeading({size:3, text:station.name});
+
+        stationDiv.appendChild(stationHeading);
+
+
+    for (const key in weather) {
+        // dot notation is strict will look for .key as a key 
+        // bracket notation will use string value to access 
+       // console.log(key,weather[key],weather.key);
+        // key, value, undefined 
+
+        if (weather[key] != null){
+
+          // console.log(key + ":" + weather[key]);
+            // create heading
+            let infoType = key.substring(0,1).toUpperCase() + key.substring(1,key.length);
+
+            let convertedData = convertData(key,weather[key]);
+
+            let infoHeading = createHeading({text: `${infoType} |   ${convertedData}`});
+
+            //append to stationDiv
+
+            stationDiv.appendChild(infoHeading); 
+
+        }
+        
+    }
+
+    let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "X";
+        deleteBtn.onclick = deleteADiv;
+
+        stationDiv.appendChild(deleteBtn);
+
+
+
+        //append the stationDiv to weatherDiv
+        weatherDiv.appendChild(stationDiv);    
+
+}
+
+function deleteADiv() {
+   // console.log(this);
+
+    //deletes div of whatever the button was attached too
+    this.parentElement.remove()
+    
+}
+
+/**
+​​
+peakgust: null
+precipitation: null
+pressure: 998.2
+snowdepth: null
+snowfall: null
+sunshine: null
+temperature: -16.6
+temperature_max: -15.3
+temperature_min: -17.9
+winddirection: 311
+windspeed: 0.8 */
+
+function convertData(key,value){
+
+    
+
+    switch(key){
+
+        case "peakgust":
+        case "windspeed":
+
+            return Math.round((value/ 1.609344)*10)/10 + " mph"
+
+            break;
+        
+        case "precipitation":
+
+            return Math.round((value / 25.4)*100)/100 + " in."
+
+            break;
+
+        case "pressure":
+            return value + ` hPa`
+
+            break;
+        
+        case "snowdepth":
+        case "snowfall":
+            return (value/ 2.54 )+ " in."
+        
+            break;
+
+        case "temperature":
+        case "temperature_max":
+        case "temperature_min":
+            return Math.round((value * (9/5) + 32)*10)/10 + "°F" 
+
+        case "winddirection":
+            return value + "°"
+
+            break;
+        case "date":
+            return value
+
+            break;
+
+    }
+
+}
+
+
+/**(c * 9 / 5) + 32 = F
+
+kmh / 1.609344 = mph
+
+precip / 25.4 = inch
+
+snow / 2.54 = inch
+
+(c * 9 / 5) + 32 = F all temps
+kmh / 1.609344 = mph wind / gust
+precip / 25.4 = inch
+snow / 2.54 = inch snowfall and depth */
+
+/**let temperature = weatherInfo.temperature,
                     tempHeading = createHeading({text:`Temp: ${temperature}°C`});
 
                     weatherDiv.appendChild(tempHeading);
@@ -278,19 +430,4 @@ function reqHistData(stationObj){
 
                             }
                     }
-
-
-
-
-
-            }
-
-            else {
-                alert(`Weather Data Not Available for this Location at the Date Provided`)
-            }
-
-        }
-
-        xhr.send();
-
-}
+ */
