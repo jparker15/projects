@@ -86,7 +86,7 @@ function reqAPI() {
 
     let cityName = userInput;
 
-    const apiKey = `1d2c94df8e139aafee899c78388a7063`;
+    const apiKey = ``;
 
     const xhr = new XMLHttpRequest();
 
