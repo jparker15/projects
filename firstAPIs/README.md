@@ -1,14 +1,22 @@
-dosAPIsProj - project using two api's displaying both's data
+# dosAPIsProj 
+project using two api's displaying both's data
 
-gitUsers - api.github users
+# gitUsers
+api.github users
 
-jphUsers - api.jsonplaceholder users
+# jphUsers
+api.jsonplaceholder users
 
-NASA - folder containing APIs that use NASA data
+# NASA 
+folder containing APIs that use NASA data
 
-randomFacts - display random facts
+# randomFacts
+display random facts
 
-singleFiles - folder of single file projects
+# singleFiles
+folder of single file projects
 
-Weather 4/23/20 - users can input zip codes or city names to get open weather api data to console
+# Weather 
+## 4/23/20 
+users can input zip codes or city names to get open weather api data to console
 
