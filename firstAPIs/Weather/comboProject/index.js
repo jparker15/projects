@@ -1,4 +1,5 @@
-let OWApiKey = `1d2c94df8e139aafee899c78388a7063`;
+let OWApiKey = `1d2c94df8e139aafee899c78388a7063`,
+    MSApikey = `LDlbvkBV`;
 
 
 //setup of initial htmls elems divs, inputs, btns 
@@ -11,9 +12,15 @@ window.onload = () => {
         uiDiv.id = "uiDiv";
     let copyrightDiv = document.createElement("div");
         copyrightDiv.id = "copyrightDiv";
+    let infoDiv = document.createElement("div");
+        infoDiv.id = "infoDiv";
+
 
     let header = document.createElement("h1");
         header.innerText = "Current/Historical Weather";
+
+    let currentDay = document.createElement("h3");
+        currentDay.innerText = "Current Time:" + new Date;
 
     let userInput = document.createElement("input");
         userInput.id = "userInput";
@@ -29,13 +36,27 @@ window.onload = () => {
     
     let submitBtn = document.createElement("button");
         submitBtn.id = "submitBtn";
-        submitBtn.innerText = "Submit";
+        submitBtn.innerText = "Get Current Weather";
         submitBtn.onclick = reqCurrentWeather;
         uiDiv.appendChild(submitBtn);
 
+    let historySelect = document.createElement("select");
+        historySelect.id = "historySelect";
+        historySelect.onchange = reqStation;
+    let hsDefOpt = document.createElement("option");
+        hsDefOpt.innerText = "Select a Year"
+        hsDefOpt.value = "";
+        historySelect.appendChild(hsDefOpt);
+        uiDiv.appendChild(historySelect);
+        uiDiv.insertBefore(historySelect,userInput);
+
+
+
 
     initDiv.appendChild(header);
+    initDiv.appendChild(currentDay)
     initDiv.appendChild(uiDiv);
+    initDiv.appendChild(infoDiv);
     initDiv.appendChild(copyrightDiv);
     document.body.appendChild(initDiv);
 }
@@ -45,9 +66,12 @@ window.onload = () => {
 function reqCurrentWeather (){
 
     const userInput = document.getElementById("userInput").value.trim();
+    let infoDiv = document.getElementById("infoDiv");
 
     let numbers = /[0-9]/g;
     let alphanumeric = /[A-z]/;
+
+    let query;
    
     //console.log(userInput.value);
     //Data sanization 
@@ -61,10 +85,13 @@ function reqCurrentWeather (){
         return;
     }
     else if (!alphanumeric.test(userInput) && userInput.match(numbers).length === 5){
+        query = `zip=${userInput}`;
+
       //zip code is 5 characters  
     }
     else if (alphanumeric.test(userInput)){
         //city name has only letters no special characters
+        query = `q=${userInput}`;
     }
 
     else {// invalid string
@@ -74,7 +101,7 @@ function reqCurrentWeather (){
 
     let xhr = new XMLHttpRequest(),
         reqMethod = "GET",
-        endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=${OWApiKey}&units=imperial`,
+        endpoint = `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${OWApiKey}&units=imperial`,
         asyncBool = true;
  
         xhr.open("GET",endpoint,true);
@@ -91,6 +118,9 @@ function reqCurrentWeather (){
                     alert(`${parsedData.cod}\n${parsedData.message}`)
                     
                 }
+                console.log(infoDiv);
+                
+            
                 
 
         }
@@ -100,10 +130,73 @@ function reqCurrentWeather (){
     
 }
 
-function reqHistWeather () {
-    console.log(this.value);
+function reqStation () {
+   
+    console.log("test");
+    
+
+
+
+    // let station = document.getElementById("userInput").value.trim();
+
+    // let xhr = new XMLHttpRequest();
+
+
+    // //https://api.meteostat.net/{VERSION}/{PACKAGE}/{METHOD}?{PARAMETERS}
+    // const endpoint = `https://api.meteostat.net/v1/histor/daily?${station}&start=${start}&end=${end}&key=${MSApikey}`;
+
+    //     xhr.open("GET",endpoint,true);
+
+    //     xhr.onload = () => {
+
+    //         let parsedData = JSON.parse(xhr.responseText)
+
+    //     };
+
+    //     xhr.send();
     
 }
 
 
-//meteostat and openweather
+//meteostat and openweather END
+
+//HISTORIC SELECT FUNCTIONS//
+function createSelect (selObj){
+    let select = document.createElement("select");
+
+    if(selObj.id != undefined && document.getElementById(selObj.id) == null){
+        select.id = selObj.id;
+    }
+    if(selObj.class != undefined){
+        select.className = selObj.class;
+    }
+    
+    let defaultOpt = document.createElement("option")
+
+    defaultOpt.innerText = selObj.defText == undefined ? "Select a Option": selObj.defText;
+    defaultOpt.value = "";
+
+    select.appendChild(defaultOpt)
+
+    for(let i = 0; i < selObj.arr.length; i++){
+        //console.log(i);
+        
+        const option = document.createElement("option");
+
+        option.innerText = selObj.arr[i];
+
+        option.value = selObj.arr[i];
+
+        select.appendChild(option);
+     
+        
+    }
+    // ONCHANGE
+
+    select.onchange = selObj.onchangeFunc != undefined ? selObj.onchangeFunc : undefined;
+
+    return select
+    
+}
+
+
