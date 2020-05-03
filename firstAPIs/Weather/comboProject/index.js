@@ -1,3 +1,6 @@
+let OWApiKey = `1d2c94df8e139aafee899c78388a7063`;
+
+
 //setup of initial htmls elems divs, inputs, btns 
 window.onload = () => {
 
@@ -38,12 +41,67 @@ window.onload = () => {
 }
 
 //XHR REQS
+//openweather api
 function reqCurrentWeather (){
 
-    let userInput = document.getElementById("userInput");
-    console.log("texst");
-    console.log(userInput.value);
+    const userInput = document.getElementById("userInput").value.trim();
+
+    let numbers = /[0-9]/g;
+    let alphanumeric = /[A-z]/;
+   
+    //console.log(userInput.value);
+    //Data sanization 
+
+    if (userInput.length < 3 || userInput.length > 30){
+        alert(`Entry must be more then two (2) characters less then thirty (30) characters.`);
+        return;
+    }
+    else if (numbers.test(userInput) && alphanumeric.test(userInput)){
+        alert("Entry can not have numbers and letters");
+        return;
+    }
+    else if (!alphanumeric.test(userInput) && userInput.match(numbers).length === 5){
+      //zip code is 5 characters  
+    }
+    else if (alphanumeric.test(userInput)){
+        //city name has only letters no special characters
+    }
+
+    else {// invalid string
+        return alert("Entry is not a valid entry try again")
+        
+    }
+
+    let xhr = new XMLHttpRequest(),
+        reqMethod = "GET",
+        endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=${OWApiKey}&units=imperial`,
+        asyncBool = true;
+ 
+        xhr.open("GET",endpoint,true);
+
+
+        xhr.onload = () => {
+            let parsedData = JSON.parse(xhr.responseText);
+
+                console.log(parsedData);
+                //error alert if user input is not found
+                if(parsedData.cod == 404){
+                    console.log(parsedData.cod, parsedData.message);
+
+                    alert(`${parsedData.cod}\n${parsedData.message}`)
+                    
+                }
+                
+
+        }
+
+        xhr.send();
     
+    
+}
+
+function reqHistWeather () {
+    console.log(this.value);
     
 }
 
