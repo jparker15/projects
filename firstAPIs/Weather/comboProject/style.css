@@ -3,6 +3,10 @@ body{
 }
 
 #initDiv{
-    background-color: lightyellow;
+    background-color: lightcoral;
     text-align: center;
+}
+#copyrightDiv {
+    padding: 50px 0;
+    margin-top: 20px;
 }
