@@ -1,5 +1,5 @@
 //REMOVE ME
-let apiKey = "LDlbvkBV";
+let apiKey = "";
 
 
 //MAIN HTML ELEMENTS CREATION
