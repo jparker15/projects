@@ -1,5 +1,5 @@
 let OWApiKey = `1d2c94df8e139aafee899c78388a7063`,
-    MSApikey = `LDlbvkBV`;
+    MSApiKey = `LDlbvkBV`;
 
 
 //setup of initial htmls elems divs, inputs, btns 
@@ -12,6 +12,7 @@ window.onload = () => {
         uiDiv.id = "uiDiv";
     let copyrightDiv = document.createElement("div");
         copyrightDiv.id = "copyrightDiv";
+        copyrightDiv.innerHTML = innerHTML = `Data provided by <a href="https://www.meteostat.net" title="meteostat" target="_blank">meteostat</a>. Meteorological data: Copyright &copy; National Oceanic and Atmospheric Administration (NOAA), Deutscher Wetterdienst (DWD). Learn more about the <a href="https://www.meteostat.net/sources" title="meteostat Sources" target="_blank">sources</a>.`;
     let infoDiv = document.createElement("div");
         infoDiv.id = "infoDiv";
 
@@ -38,7 +39,23 @@ window.onload = () => {
         submitBtn.id = "submitBtn";
         submitBtn.innerText = "Get Current Weather";
         submitBtn.onclick = reqCurrentWeather;
+
+    let histSubBtn = document.createElement("button");
+        histSubBtn.id = "histBtn";
+        histSubBtn.innerText = "Get Historic Weather"
+        histSubBtn.onclick = reqStation
+        histSubBtn.style.display = "none";
+
+
+    let toggleBtn = document.createElement("button");
+        toggleBtn.id = "toggle";
+        toggleBtn.innerText = "Click Me"
+        toggleBtn.onclick = toggle;
+
+
         uiDiv.appendChild(submitBtn);
+        uiDiv.appendChild(histSubBtn);
+
 
     let historySelect = document.createElement("select");
         historySelect.id = "historySelect";
@@ -46,6 +63,7 @@ window.onload = () => {
     let hsDefOpt = document.createElement("option");
         hsDefOpt.innerText = "Select a Year"
         hsDefOpt.value = "";
+        historySelect.style.display = "none";
         historySelect.appendChild(hsDefOpt);
         uiDiv.appendChild(historySelect);
         uiDiv.insertBefore(historySelect,userInput);
@@ -54,15 +72,48 @@ window.onload = () => {
 
 
     initDiv.appendChild(header);
-    initDiv.appendChild(currentDay)
+    initDiv.appendChild(currentDay);
     initDiv.appendChild(uiDiv);
+    initDiv.appendChild(toggleBtn);
     initDiv.appendChild(infoDiv);
     initDiv.appendChild(copyrightDiv);
     document.body.appendChild(initDiv);
 }
 
+// allow users to toggle between current and history user inputs
+function toggle (){
+    console.log(this);
+    let submitBtn = document.getElementById("submitBtn");
+
+    let histBtn = document.getElementById("histBtn");
+
+    let historySelect = document.getElementById("historySelect");
+        //current weather is display select is not 
+    if (submitBtn.style.display != "none" && historySelect.style.display === "none"){
+        console.log("History UI");
+        //this.innerText = "Click to Get History Weather"
+         
+        submitBtn.style.display = "none";
+       histBtn.style.display = "inline-block";
+       historySelect.style.display = "initial";
+        
+    }
+    else {
+        console.log(" Current UI"); //History Select UI
+       
+        
+        submitBtn.style.display = "inline-block";
+        histBtn.style.display = "none";
+        historySelect.style.display = "none";
+        
+
+
+    }
+    
+}
+
 //XHR REQS
-//openweather api
+//openweather api 
 function reqCurrentWeather (){
 
     const userInput = document.getElementById("userInput").value.trim();
@@ -129,36 +180,33 @@ function reqCurrentWeather (){
     
     
 }
-
+// Meteostat
 function reqStation () {
    
     console.log("test");
     
+    let station = document.getElementById("userInput").value.trim();
+
+    let xhr = new XMLHttpRequest();
 
 
+    //https://api.meteostat.net/{VERSION}/{PACKAGE}/{METHOD}?{PARAMETERS}
+    const endpoint = `https://api.meteostat.net/v1/stations/search?q=${station}&key=${MSApiKey}`;
 
-    // let station = document.getElementById("userInput").value.trim();
+        xhr.open("GET",endpoint,true);
 
-    // let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
 
+            let parsedData = JSON.parse(xhr.responseText)
+                console.log(parsedData);
+                
 
-    // //https://api.meteostat.net/{VERSION}/{PACKAGE}/{METHOD}?{PARAMETERS}
-    // const endpoint = `https://api.meteostat.net/v1/histor/daily?${station}&start=${start}&end=${end}&key=${MSApikey}`;
+        };
 
-    //     xhr.open("GET",endpoint,true);
-
-    //     xhr.onload = () => {
-
-    //         let parsedData = JSON.parse(xhr.responseText)
-
-    //     };
-
-    //     xhr.send();
+        xhr.send();
     
 }
 
-
-//meteostat and openweather END
 
 //HISTORIC SELECT FUNCTIONS//
 function createSelect (selObj){
