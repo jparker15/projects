@@ -14,9 +14,9 @@ body{
 #toggle {
     color: lightpink;
 }
-/* #infoDiv {
-    
-} */
+#infoDiv {
+    display: flex;
+}
 #infoDiv div{
 
     border: solid khaki 2px;
