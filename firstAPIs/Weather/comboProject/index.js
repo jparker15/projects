@@ -28,13 +28,23 @@ window.onload = () => {
         copyrightDiv.innerHTML =`Data provided by <a href="https://www.meteostat.net" title="meteostat" target="_blank">meteostat</a>. Meteorological data: Copyright &copy; National Oceanic and Atmospheric Administration (NOAA), Deutscher Wetterdienst (DWD). Learn more about the <a href="https://www.meteostat.net/sources" title="meteostat Sources" target="_blank">sources</a>.`;
     let infoDiv = document.createElement("div");
         infoDiv.id = "infoDiv";
+    let headDiv = document.createElement("div");
+        headDiv.id = "headDiv";
 
 
     let header = document.createElement("h1");
         header.innerText = "Current/Historical Weather";
 
+    let date = createHeading({id:"dateHeader", text:``})
+        
+
     let currentDay = document.createElement("h3");
         currentDay.innerText = "Current Time:" + new Date;
+        currentDay.id = "currTime";
+
+        headDiv.appendChild(header);
+        headDiv.appendChild(currentDay);
+        headDiv.appendChild(date);
 
     let userInput = document.createElement("input");
         userInput.id = "userInput";
@@ -95,13 +105,12 @@ window.onload = () => {
 
 
 
-    initDiv.appendChild(header);
-    initDiv.appendChild(currentDay);
+    initDiv.appendChild(headDiv);
     initDiv.appendChild(uiDiv);
     initDiv.appendChild(toggleBtn);
     initDiv.appendChild(infoDiv);
-    initDiv.appendChild(copyrightDiv);
     document.body.appendChild(initDiv);
+    document.body.appendChild(copyrightDiv)
 }
 
 // allow users to toggle between current and history user inputs
@@ -123,6 +132,8 @@ function toggle (){
        histBtn.style.display = "inline-block";
        historySelect.style.display = "initial";
        userInput.placeholder = "Enter a City Name";
+       document.getElementById("currTime").innerText = "Enter a Date & City Name";
+       document.getElementById("dateHeader").style.display = "initial";
         
     }
     else {
@@ -133,9 +144,13 @@ function toggle (){
         histBtn.style.display = "none";
         historySelect.style.display = "none";
         userInput.placeholder = "Enter a City or Zip Code"
-        
-        
-
+        document.getElementById("currTime").innerText = "Current Time:" + new Date;
+        if (document.getElementById("stationSelect") != null){
+            document.getElementById("stationSelect").remove()
+        }
+        if (document.getElementById("dateHeader")!= null){
+            document.getElementById("dateHeader").style.display = "none";
+        }
 
     }
     
@@ -198,7 +213,13 @@ function reqCurrentWeather (){
                     alert(`${parsedData.cod}\n${parsedData.message}`)
                     
                 }
-                console.log(infoDiv);
+
+                for (const key in parsedData) {
+                    let weatherObj = parsedData[key]
+                   console.log(key,weatherObj);
+                   
+                }
+               // console.log(infoDiv);
                 
             
                 
@@ -289,7 +310,7 @@ function reqStation () {
                     document.getElementById("stationSelect").remove()
                 }
                 document.getElementById("uiDiv").appendChild(select)
-                document.getElementById("uiDiv").insertBefore(select,userInput)
+                document.getElementById("uiDiv").insertBefore(select,historySelect)
 
 
             }
@@ -323,7 +344,7 @@ let endpoint = `https://api.meteostat.net/v1/history/daily?station=${stationObj.
 
             if(weatherInfo != undefined){
                 // display info to frontend 
-                console.log(`display some info to frontend plez`);
+                displayHistWeather(weatherInfo, stationObj)
                 
             }
             else {
@@ -336,8 +357,97 @@ let endpoint = `https://api.meteostat.net/v1/history/daily?station=${stationObj.
     
 }
 
+function displayCurrWeather (){
+
+}
+
+function displayHistWeather(weather,station){
+   // console.log(station);
+    
+
+    let stationDiv = document.createElement("div"),
+        infoDiv = document.getElementById("infoDiv");
+
+    let stationHead = createHeading({size:3, text: station.name})
+        stationDiv.appendChild(stationHead)
+
+            //for in loop
+    for (const key in weather){
+
+        if (weather[key] != null){
+
+            let capitilize = key.substring(0,1).toUpperCase() + key.substring(1,key.length).toLowerCase();
+
+            let convertedData = convertData(key,weather[key]);
+
+            let infoHead = createHeading({text: `${capitilize}| ${convertedData}`});
+
+            stationDiv.appendChild(infoHead);
+
+        }
+
+    }
+    let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "X";
+        deleteBtn.onclick = () => {
+            deleteBtn.parentElement.remove()
+        };
+
+        stationDiv.appendChild(deleteBtn);
+
+    infoDiv.appendChild(stationDiv);
 
 
+}
+
+// change Meteostat Data from Metric to Imperial
+function convertData(key,value){
+
+    
+
+    switch(key){
+
+        case "peakgust":
+        case "windspeed":
+
+            return Math.round((value/ 1.609344)*10)/10 + " mph"
+
+            break;
+        
+        case "precipitation":
+
+            return Math.round((value / 25.4)*100)/100 + " in."
+
+            break;
+
+        case "pressure":
+            return value + ` hPa`
+
+            break;
+        
+        case "snowdepth":
+        case "snowfall":
+            return (value/ 2.54 )+ " in."
+        
+            break;
+
+        case "temperature":
+        case "temperature_max":
+        case "temperature_min":
+            return Math.round((value * (9/5) + 32)*10)/10 + "°F" 
+
+        case "winddirection":
+            return value + "°"
+
+            break;
+        case "date":
+            return value
+
+            break;
+
+    }
+
+}
 
 //HISTORIC SELECT FUNCTIONS//
 
@@ -424,7 +534,7 @@ let daySelect = createSelect({
 
 
 function daySelected() {
-    userSelectedDate = true
+    userSelectedDate = true;
     
     this.style.display = "none";
     let day = this.value;
@@ -435,6 +545,8 @@ function daySelected() {
     document.getElementById("historySelect").value = "";
 
     console.log(`${dateInfo.year}-${dateInfo.month}-${dateInfo.day}`);
+   
+    let date = document.getElementById("dateHeader").innerText = `Date: ${dateInfo.month}-${dateInfo.day}-${dateInfo.year}`;
 
     
     
@@ -476,6 +588,24 @@ function createSelect (selObj){
 
     return select
     
+}
+
+function createHeading (headObj){
+
+    let  heading = headObj.size >= 1 && headObj.size <= 5 ? document.createElement("h" + headObj.size): document.createElement("h2");
+
+    
+    if (headObj.id != undefined && document.getElementById(headObj.id) == null){
+        heading.id = headObj.id
+    }
+
+    if (headObj.text != undefined){
+
+        heading.innerText = headObj.text;
+    }
+
+    return heading
+        
 }
 
 
