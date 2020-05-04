@@ -50,8 +50,7 @@ window.onload = () => {
         userInput.id = "userInput";
         userInput.placeholder = "Enter a City or Zip Code";
 
-        userInput.value = "02906";
-           reqCurrentWeather 
+       
         
         uiDiv.appendChild(userInput);
     
