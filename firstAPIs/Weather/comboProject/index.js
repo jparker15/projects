@@ -11,7 +11,7 @@ let dateInfo = {
 
 
 let yearArr = Array.from({ length: dateInfo.year + 1}, (a,b) => b).slice(dateInfo.year - 25).reverse();
-console.log(yearArr);
+//console.log(yearArr);
 
 
 
@@ -49,6 +49,9 @@ window.onload = () => {
     let userInput = document.createElement("input");
         userInput.id = "userInput";
         userInput.placeholder = "Enter a City or Zip Code";
+
+        userInput.value = "02906";
+           reqCurrentWeather 
         
         uiDiv.appendChild(userInput);
     
@@ -205,23 +208,67 @@ function reqCurrentWeather (){
         xhr.onload = () => {
             let parsedData = JSON.parse(xhr.responseText);
 
-                console.log(parsedData);
-                //error alert if user input is not found
-                if(parsedData.cod == 404){
-                    console.log(parsedData.cod, parsedData.message);
+             //   console.log(parsedData);
+                //error alert if cod is any besides 200 which is standard for OKAY
+                if(parsedData.cod != 200 ){
+                  //  console.log(parsedData.cod, parsedData.message);
 
                     alert(`${parsedData.cod}\n${parsedData.message}`)
+                    return
                     
                 }
+            let div = document.createElement("div");
+            
+            let cityHead = createHeading({size:3,text:parsedData.name});
+
+                //icon for current weather
+            let imageLink = `http://openweathermap.org/img/wn/${parsedData.weather[0].icon}@2x.png`;
+                //weather description to match icon
+
+            let weatherDes = parsedData.weather[0].main;
+
+            let weatherHead = createHeading({text:weatherDes});
+
+            let icon = createImg({src:imageLink,alt:weatherDes})
+                div.appendChild(cityHead);
+                div.appendChild(weatherHead);
+                div.appendChild(icon);
+
 
                 for (const key in parsedData) {
-                    let weatherObj = parsedData[key]
-                   console.log(key,weatherObj);
+                    let weatherObj = parsedData[key];
+                 //  console.log(key,weatherObj);
+                    
+                   if(key == "main" || key == "wind"){
+                      
+                    for(const k in parsedData[key] ){
+
+                       // console.log(key,k,parsedData[key][k]);
+                        let dataType = k.substring(0,1).toUpperCase() + k.substring(1,k.length).replace(/_/, " "); 
+                            console.log(dataType);
+                            
+                        let weatherInfo = createHeading({text:`${[k]} - ${parsedData[key][k]},`})
+                            div.appendChild(weatherInfo);
+
+                    }
+                       
+                   }
+
+                //    for(const key in weatherObj){
+                //        console.log(weatherObj[key]);
+                       
+                //    
                    
                 }
                // console.log(infoDiv);
-                
-            
+               let deleteBtn = document.createElement("button");
+               deleteBtn.innerText = "X";
+               deleteBtn.onclick = () => {
+                   deleteBtn.parentElement.remove()
+               };
+       
+               div.appendChild(deleteBtn);
+                document.getElementById("infoDiv").appendChild(div);
                 
 
         }
@@ -259,7 +306,7 @@ function reqStation () {
         xhr.onload = () => {
 
             let parsedData = JSON.parse(xhr.responseText)
-                console.log(parsedData);
+               // console.log(parsedData);
             
             if (parsedData.data.length == 0){
                 alert(`No stations were found, please try again`)
@@ -354,7 +401,8 @@ let endpoint = `https://api.meteostat.net/v1/history/daily?station=${stationObj.
         }
 
         xhr.send();
-    
+ 
+        
 }
 
 function displayCurrWeather (){
@@ -544,7 +592,7 @@ function daySelected() {
     document.getElementById("historySelect").style.display = "inline";
     document.getElementById("historySelect").value = "";
 
-    console.log(`${dateInfo.year}-${dateInfo.month}-${dateInfo.day}`);
+    //console.log(`${dateInfo.year}-${dateInfo.month}-${dateInfo.day}`);
    
     let date = document.getElementById("dateHeader").innerText = `Date: ${dateInfo.month}-${dateInfo.day}-${dateInfo.year}`;
 
@@ -606,6 +654,21 @@ function createHeading (headObj){
 
     return heading
         
+}
+
+function createImg (imageObj){
+    let image = document.createElement("img");
+    image.src = imageObj.src != undefined ? imageObj.src : "./demo.jpg"
+    image.alt = imageObj.alt != undefined ? imageObj.alt : "image could not load / brkn" 
+
+    if (imageObj.id != undefined && document.getElementById(imageObj.id) == null){
+        image.id = imageObj.id;
+    }
+    if (imageObj.class != undefined){
+        image.className = imageObj.class;
+    }
+      //console.log(`${image.src},${image.alt},${image.id},`);
+    return image    
 }
 
 
