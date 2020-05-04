@@ -14,3 +14,18 @@ body{
 #toggle {
     color: lightpink;
 }
+/* #infoDiv {
+    
+} */
+#infoDiv div{
+
+    border: solid khaki 2px;
+  
+    height: auto;
+    width: 50%;
+    
+
+}
+#infoDiv h2 h3 {
+    color:  lavender;
+}
