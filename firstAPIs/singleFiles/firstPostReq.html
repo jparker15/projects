@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Post Request</title>
+
+    <style></style>
+</head>
+<body>
+        <!-- old way of posting forms -->
+    <!-- <form action="https://jsonplaceholder.typicode.com/posts" method="POST"> -->
+
+        <form action="">
+
+        <input type="text" name = "title" placeholder="Enter Post Title"><br>
+        <input type="text" name = "body" placeholder="Enter Body "><br>
+        <input type="text" name = "userId" placeholder="Enter User Id"><br>
+
+        <input type="button" value="Submit Your Post!" id = "submitBtn">
+
+    </form>
+
+    <script>
+        
+        submitBtn.onclick = () => {
+            //console.log(this);
+
+            let form = submitBtn.parentNode
+
+            console.log(form);
+            
+            // for (const key in form) {
+            //     console.log(key);
+            // gives all
+            // }
+            let postBody = {},
+
+                validSubmit = true;
+
+            for (const inputElem of form) {
+
+                // console.log(inputElem);
+
+                
+
+                if(inputElem.type != "button"){
+
+                    // add the value to our object
+
+                    // if input isn't blank or blank spaces Data Sanitization 
+                    if(inputElem.value.trim() != ""){
+                        // add key/value to postBody(object)
+                        // object [key] = value (user input of foorm)
+                        postBody[inputElem.name] = inputElem.value
+                       
+                        
+
+                    }
+                    else{
+
+                        inputElem.value = "";
+
+                        inputElem.placeholder = "Required Field";
+
+                        inputElem.style.color = "red";
+
+                        
+
+                        validSubmit = false;
+                    }
+
+                }
+                
+            }
+
+            if (validSubmit){
+                console.log(postBody);
+                console.log("request API call ");
+
+                makeAPost(postBody)
+            }
+
+            
+            
+
+
+        }
+
+
+        console.log("Jello Wrold");
+
+
+        function makeAPost(body){
+            let xhr = new XMLHttpRequest(),
+
+            endpoint = "https://jsonplaceholder.typicode.com/posts";
+
+            xhr.open("POST",endpoint);
+            //callback function
+            xhr.onload = () =>{
+
+                let parsedData = JSON.parse(xhr.responseText);
+
+                console.log(parsedData);
+   
+
+            }
+
+            xhr.setRequestHeader("Content-Type", "application/json")
+                //objects must be stringified to pass through HTTP/ the internet
+            let postObj = JSON.stringify(body)
+                
+           
+            
+
+            xhr.send(postObj);
+        }
+        
+
+    </script>
+    
+</body>
+</html>
