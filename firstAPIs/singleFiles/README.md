@@ -22,3 +22,20 @@ firstPostReq -
             let postObj = JSON.stringify(object made from user input of form)
 
         xhr.send(request body)
+
+firstPUT-PATCH-REQ - 
+    first use of "PUT" & "PATCH" request methods
+
+    Idempotence - property of certain operations in mathematics and computer science whereby they can be applied multiple times without changing the result beyond the initial application
+
+    The difference between POST and PUT is that PUT requests are idempotent. That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a POST request repeatedly have side effects of creating the same resource multiple times.
+
+    PUT is a method of modifying resource where the client sends data that updates the entire resource. It is used to set an entity’s information completely.PUT overwrites the entire entity if it already exists, and creates a new resource if it doesn’t exist.
+
+    PATCH applies a partial update to the resource.Only required to send the data that you want to update, and it won’t affect or change anything else
+
+    isNaN() Method
+
+    Object.keys()
+
+    bracknet notation vs dot notation accessing object properties
