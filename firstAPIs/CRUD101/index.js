@@ -18,17 +18,18 @@ window.onload = () => {
 function displayPosts(postObj){
     //console.log(postObj[0]); postObj is an array of 100 objects with key/values for each post
     
-    //console.log(postObj[0])
+    console.log(postObj)
   
     for (let i = 0; i < 10; i++) {
-        console.log(postObj[i]);
+       // console.log(postObj[i]);
         let id = postObj[i].id,
+            userID = postObj[i].userId
             title = postObj[i].title,
             body = postObj[i].body;
 
 
         
-        let postHeading = createHeading({size:5,text:`ID:${id}\nTitle:${title}\nBody:${body}`})
+        let postHeading = createHeading({size:5,text:`User ID:${userID} Post:${id}\nTitle:${title}\nBody:${body}`})
         let postDiv = document.createElement("div");
         postDiv.appendChild(postHeading);
         initDiv.appendChild(postDiv);
