@@ -1,10 +1,12 @@
 
 
 window.onload = () => {
-
+    let div = document.createElement("div");
+    div.id = "initDiv";
+        document.body.appendChild(div);
     //req all post -> arr of 100 posts object
-    
     //https://jsonplaceholder.typicode.com/posts/
+    reqPosts()
 
     // itterate through first 10-20 elements
 
@@ -13,9 +15,60 @@ window.onload = () => {
    
 }
 
+function displayPosts(postObj){
+    //console.log(postObj[0]); postObj is an array of 100 objects with key/values for each post
+    
+    //console.log(postObj[0])
+  
+    for (let i = 0; i < 10; i++) {
+        console.log(postObj[i]);
+        let id = postObj[i].id,
+            title = postObj[i].title,
+            body = postObj[i].body;
 
 
+        
+        let postHeading = createHeading({size:5,text:`ID:${id}\nTitle:${title}\nBody:${body}`})
+        let postDiv = document.createElement("div");
+        postDiv.appendChild(postHeading);
+        initDiv.appendChild(postDiv);
+        
+    }
 
+    // for (const key in postObj[count]) {
+    //     console.log(postObj[0][key]);// loops through entire array of objects
+
+        // console.log(postObj[key].userId); gives value of userId key
+        // return
+        
+        // console.log(Object.keys(postObj[key])); give key of postObj objects
+
+        
+        
+
+    
+    
+
+}
+
+function reqPosts (){
+    let xhr = new XMLHttpRequest();
+
+    const endpoint = "https://jsonplaceholder.typicode.com/posts/";
+
+        xhr.open("GET",endpoint,true);
+
+        xhr.onload = () => {
+            let parsedData = JSON.parse(xhr.responseText);
+               // console.log(parsedData);
+
+                displayPosts(parsedData)
+                
+        }
+
+        xhr.send()
+
+}
 
 function compileFormData() {
 
@@ -34,7 +87,7 @@ function compileFormData() {
         for (const input of formID) {
             //conditionals if request is going to be made
 
-                 console.log(input);      
+                 //console.log(input);      
 
                 // don't include button, postID, and input can't be empty string or spaces
                 if(input.type != "button" && input.name != "postID" && input.value.trim() != ""){
@@ -104,3 +157,20 @@ function compileFormData() {
         xhr.send(jsonBody);
     }
     
+    function createHeading (headObj){
+
+        let  heading = headObj.size >= 1 && headObj.size <= 5 ? document.createElement("h" + headObj.size): document.createElement("h2");
+    
+        
+        if (headObj.id != undefined && document.getElementById(headObj.id) == null){
+            heading.id = headObj.id
+        }
+    
+        if (headObj.text != undefined){
+    
+            heading.innerText = headObj.text;
+        }
+    
+        return heading
+            
+    }
