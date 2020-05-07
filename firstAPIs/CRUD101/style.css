@@ -1,0 +1,21 @@
+body{
+    text-align:center;
+    background-color: lightcoral   ;
+}
+#initDiv {
+    display: flex;
+    flex-direction: column;
+    
+}
+#initDiv div{
+    border:2px solid antiquewhite;
+    margin: 20px 0px 0px 0px;
+    background-color: lightgoldenrodyellow;
+
+}
+
+#initDiv :hover h5{
+    background-color: lightgrey;
+    /* align-self: center;
+    width: 50%; */
+}
