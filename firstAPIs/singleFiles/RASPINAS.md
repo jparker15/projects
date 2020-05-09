@@ -18,3 +18,9 @@ Raspberry Pi Commands
 
 PuTTY Commands 
     wget -O - https://github.com/OpenMediaVault-Plugin-Developers/installScript/raw/master/install | sudo bash
+
+Making a Raspberry Pi desktop made more economic sense so I changed my project goal from NAS to Raspian Desktop
+
+Raspbian Buster
+Rasberry Pi 3 
+32GB Micro SD card
