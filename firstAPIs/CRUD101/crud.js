@@ -22,6 +22,8 @@ window.onload = () => {
     document.body.appendChild(postsDiv);
     reqAllPosts()
     
+    
+    
   
 }
 function displayPosts(){
@@ -80,8 +82,10 @@ function reqAllPosts(){
             let parsedData = JSON.parse(xhr.responseText)
             // allPost is a global array containing all user post
             allPost = parsedData;
-          //  console.log(allPost);
+
             displayPosts()
+
+            console.log(allPost);
         }
 
         xhr.send();
@@ -89,15 +93,44 @@ function reqAllPosts(){
 
 function editPost(){
 
+    
+    
+
 }
 
 function deletePost(){
                 //button . div the button is appened to. id property
     let postID = this.parentElement.id,
 
-    //console.log(postID);
+    
 
     endpoint = `https://jsonplaceholder.typicode.com/posts/${postID}`;
+    console.log(postID);
+   // console.log(allPost[postID-1]);
+   let deletedPosts = [];
+   
+   
+    for(let i = 0;i< allPost.length;i++){
+
+        if(postID == allPost[i].id){
+
+            console.log(`delete ${postID}/${allPost[i].id}`);
+        
+            let postIndex = allPost[i].id - 1;
+        
+        
+
+            // let test = allPost.splice(postIndex,1);
+
+            // console.log(test);
+            // deletedPosts.push(test);
+        }       
+    }
+
+    console.log(deletedPosts);
+    
+    
+    
 
     let xhr = new XMLHttpRequest();
 
@@ -108,6 +141,9 @@ function deletePost(){
             let parsedData = JSON.parse(xhr.responseText);
 
             console.log(parsedData);
+
+            
+            
             
             
         }
