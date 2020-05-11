@@ -109,25 +109,26 @@ function deletePost(){
    // console.log(allPost[postID-1]);
    let deletedPosts = [];
    
+    
    
-    for(let i = 0;i< allPost.length;i++){
+    // for(let i = 0;i< allPost.length;i++){
 
-        if(postID == allPost[i].id){
+    //     if(postID == allPost[i].id){
 
-            console.log(`delete ${postID}/${allPost[i].id}`);
+    //         console.log(`delete ${postID}/${allPost[i].id}`);
         
-            let postIndex = allPost[i].id - 1;
+    //         let postIndex = allPost[i].id - 1;
         
         
 
-            // let test = allPost.splice(postIndex,1);
+    //          allPost.splice(postIndex,1);
 
-            // console.log(test);
-            // deletedPosts.push(test);
-        }       
-    }
+    //         console.log(allPost);
+    //          //deletedPosts.push(test);
+    //     }       
+    // }
 
-    console.log(deletedPosts);
+  //  console.log(deletedPosts);
     
     
     
