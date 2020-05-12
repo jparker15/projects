@@ -1,4 +1,5 @@
 let allPost;
+let deletedPosts = [];
 
 let viewingUser = 1;
 
@@ -72,11 +73,14 @@ function displayPosts(){
 }
 
 function reqAllPosts(){
+
     let xhr = new XMLHttpRequest();
 
         const endpoint = "https://jsonplaceholder.typicode.com/posts";
 
         xhr.open("GET",endpoint,true);
+
+        
         
         xhr.onload = () =>{
             let parsedData = JSON.parse(xhr.responseText)
@@ -85,7 +89,7 @@ function reqAllPosts(){
 
             displayPosts()
 
-            console.log(allPost);
+          //  console.log(allPost);
         }
 
         xhr.send();
@@ -101,34 +105,54 @@ function editPost(){
 function deletePost(){
                 //button . div the button is appened to. id property
     let postID = this.parentElement.id,
+        postIndex = allPost[postID - 1].id;
 
     
 
     endpoint = `https://jsonplaceholder.typicode.com/posts/${postID}`;
     console.log(postID);
-   // console.log(allPost[postID-1]);
-   let deletedPosts = [];
-   
+    console.log(postIndex);
+
+    if (postID == postIndex){
+        allPost.splice(postIndex - 1,1);
+        console.log("test");
+        postIndex - 1;
+        
+    }
     
    
-    // for(let i = 0;i< allPost.length;i++){
+    //console.log(allPost);
+    
+   // console.log(allPost.indexOf(postID))
 
+    // var arr = [1, 2, 3, 4, 5, 5, 6, 7, 8, 5, 9, 0];
+    // for( var i = 0; i < arr.length; i++){
+
+    //      if ( arr[i] === 5) { arr.splice(i, 1); i--;}
+
+    // }//=> [1, 2, 3, 4, 6, 7, 8, 9, 0]
+    
+   
+    // for(let i = 0;i < allPost.length;i++){
+    //     console.log(postID,allPost[i].id);
+        
     //     if(postID == allPost[i].id){
 
-    //         console.log(`delete ${postID}/${allPost[i].id}`);
+    //      // console.log(`delete ${postID}/${allPost[i].id}`);
         
-    //         let postIndex = allPost[i].id - 1;
-        
-        
+    //         let postIndex = allPost[i].id;
 
-    //          allPost.splice(postIndex,1);
+    //         let delPost = allPost.splice(i,1);
+ 
 
-    //         console.log(allPost);
-    //          //deletedPosts.push(test);
+    //        // console.log(allPost);
+    //       //   deletedPosts.push(delPost);
     //     }       
+        
     // }
 
-  //  console.log(deletedPosts);
+  //s console.log(deletedPosts);
+   
     
     
     
@@ -137,15 +161,13 @@ function deletePost(){
 
         xhr.open("DELETE",endpoint,true)
 
+       // xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+
         xhr.onload = () => {
             
             let parsedData = JSON.parse(xhr.responseText);
 
             console.log(parsedData);
-
-            
-            
-            
             
         }
 
