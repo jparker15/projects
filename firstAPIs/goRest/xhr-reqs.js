@@ -53,19 +53,19 @@ function deleteUserReq (userID){
 
 //updateUser(1149)
 
-function updateUserReq (userID){
+function updateUserReq (userID,body){
 
-    let firstName = prompt("First Name","Kelly");
-    let lastName = prompt("Last Name","Clarkson");
-    let email = prompt("EMaiL?", "agentkc@aol.com")
-    const body = JSON.stringify({
+    // let firstName = prompt("First Name","Kelly");
+    // let lastName = prompt("Last Name","Clarkson");
+    // let email = prompt("EMaiL?", "agentkc@aol.com")
+    // const body = JSON.stringify({
 
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
+    //     first_name: firstName,
+    //     last_name: lastName,
+    //     email: email,
         
 
-    });
+    // });
 
 
     const endpoint = `https://gorest.co.in/public-api/users/${userID}?access-token=${restKey}`;
