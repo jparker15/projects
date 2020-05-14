@@ -4,6 +4,28 @@ const restKey = "S6M5p6JU9O0GOXmXy4yExjWNoDCUedJL5cfU";
 
 //deleteUser(1121)
 
+function postNewUser (body) {
+    const endpoint = `https://gorest.co.in/public-api/users?access-token=${restKey}`;
+
+    let xhr = new XMLHttpRequest();
+
+        xhr.open ("POST",endpoint,true)
+
+        xhr.onload = () =>{
+
+            let parsedData = JSON.parse(xhr.responseText);
+
+            console.log(parsedData);
+            
+
+        }
+
+        xhr.setRequestHeader("Content-Type","json/application")
+
+        xhr.send(body)
+    
+}
+
 function requestUsers (pageNum) {
 
     const endpoint = `https://gorest.co.in/public-api/users?access-token=${restKey}&page=${pageNum}`;
