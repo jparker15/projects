@@ -1,0 +1,20 @@
+body{
+    background-color: lightblue;
+}
+
+#uiDiv{
+    text-align: center;
+    background-color: lightcoral;
+}
+
+#usersDiv{
+    text-align: center;
+}
+
+#usersDiv div{
+    border:2px solid antiquewhite;
+    margin: 20px 0px 0px 0px;
+    background-color: lightgoldenrodyellow;
+    
+}
+
