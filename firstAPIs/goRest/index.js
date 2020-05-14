@@ -26,22 +26,127 @@ window.onload = () => {
     document.body.appendChild(usersDiv);
     
     requestUsers(currentPage);
-    postUser();
+    uiNewUser();
   
 }
 
-function postUser () {
+function submitUser() {
+    console.log(this.parentElement);
+
+    let userForm = this.parentElement;
+
+    let userBody = {};
+
+    let emailTest = /\S+@\S+\.\S+/;
+
+        for (let i = 0; i < userForm.length; i++) {
+            const element = userForm[i];
+                                            //
+            if (element.type == "text"){
+               
+                if(element.value.trim() == ""){
+                    return alert("Enter a Name");
+                }
+                userBody[element.name] = element.value.trim();
+            }
+            else if (element.type == "email" ){
+                
+                if(!emailTest.test(element.value.trim())){
+                    return alert ("Enter a Valid Email");
+                }
+                userBody[element.name] = element.value.trim();
+                
+            }
+            else if (element.type == "radio"){
+               // console.log(element);
+                // if (element.checked != false){
+                //     userBody[element.name] = element.value;
+                //     console.log(userBody);
+                    
+                //     return JSON.stringify(userBody)
+                // }
+
+              // console.log(element.value,element.checked);
+
+               if(element.checked == true){
+                   userBody[element.name] = element.value;
+                   //console.log(userBody);
+                   //return userBody
+               
+               }
+               
+            }
+            
+        }
+
+       // console.log(userBody);
+
+        userBody = JSON.stringify(userBody);
+
+        console.log(userBody);
+        
+
+       // postNewUser(userBody);
+        
+
+    // for (const htmlElems of userForm) {
+    //         //console.log(htmlElems,htmlElems.checked);
+            
+
+    //     if(htmlElems.type == "text" && htmlElems.value.trim() != "" ){
+    //        // console.log(htmlElems.value);
+
+    //         
+            
+    //     }
+    //     else {
+    //         return alert("Please Enter a First and Last Name");
+    //     }
+    //      if (htmlElems.name == "email" && htmlElems.value.trim() != "" && emailTest.test(htmlElems.value.trim())){
+    //         userBody[htmlElems.name] = htmlElems.value.trim()
+    //     }
+    //     else{
+    //         console.log(htmlElems.value, emailTest.test(htmlElems.value.trim()));
+            
+    //         return alert("Enter A Valid Email");
+    //     }
+        
+    //      if (htmlElems.type == "radio" ){
+    //          console.log(htmlElems.value);
+             
+    //      }
+        
+    // }
+
+
+    
+}
+
+function uiNewUser () {
     //console.log(newUserForm);
 
   let fNameInput = document.createElement("input"),
         lNameInput = document.createElement("input"),
         emailInput = document.createElement("input"),
         mRadio = document.createElement("input"),
-        fRadio = document.createElement("input");
+        fRadio = document.createElement("input"),
+        submitBtn = document.createElement("button");
 
+
+
+        fNameInput.name = "first_name";
+        lNameInput.name = "last_name";
+        emailInput.name = "email";
         mRadio.type = "radio";
         fRadio.type = "radio";
-
+        emailInput.type = "email";
+        mRadio.name = "gender";
+        mRadio.value = "Male";
+        fRadio.name = "gender";
+        fRadio.value = "Female";
+        submitBtn.innerText = "Create New User";
+        submitBtn.onclick = submitUser;
+        submitBtn.type = "button";
         
 
 
@@ -55,6 +160,10 @@ function postUser () {
         newUserForm.appendChild(mRadio);
         newUserForm.innerHTML += " Female:";
         newUserForm.appendChild(fRadio);    
+        newUserForm.innerHTML += "<br>";
+        newUserForm.appendChild(submitBtn);   
+       
+
         
 }
 
