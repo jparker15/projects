@@ -10,18 +10,52 @@ window.onload = () => {
 
     const prevPage = createButton({id:"prevPage",onClickFunc:prevPageReq,text:"Previous Page\'s Posts"});
     const nextPage = createButton({id:"nextPage",onClickFunc:nextPageReq,text:"Next Page\'s Posts"});
-  
 
+    let newUserForm = document.createElement("form");
+        newUserForm.id = "newUserForm";
+       
+
+    uiDiv.appendChild(newUserForm);
     uiDiv.appendChild(prevPage);
     uiDiv.appendChild(nextPage);
-    
+   
+ 
     
     
     document.body.appendChild(uiDiv);
     document.body.appendChild(usersDiv);
     
     requestUsers(currentPage);
+    postUser();
   
+}
+
+function postUser () {
+    //console.log(newUserForm);
+
+  let fNameInput = document.createElement("input"),
+        lNameInput = document.createElement("input"),
+        emailInput = document.createElement("input"),
+        mRadio = document.createElement("input"),
+        fRadio = document.createElement("input");
+
+        mRadio.type = "radio";
+        fRadio.type = "radio";
+
+        
+
+
+        newUserForm.innerHTML += "First Name:";
+        newUserForm.appendChild(fNameInput);
+        newUserForm.innerHTML += "<br>Last Name:";
+        newUserForm.appendChild(lNameInput);
+        newUserForm.innerHTML += "<br>Email:";
+        newUserForm.appendChild(emailInput);
+        newUserForm.innerHTML += "<br>Male:";
+        newUserForm.appendChild(mRadio);
+        newUserForm.innerHTML += " Female:";
+        newUserForm.appendChild(fRadio);    
+        
 }
 
 function displayUsers(userData){
