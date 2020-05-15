@@ -5,7 +5,7 @@ const restKey = "S6M5p6JU9O0GOXmXy4yExjWNoDCUedJL5cfU";
 //deleteUser(1121)
 
 function postNewUser (body) {
-    const endpoint = `https://gorest.co.in/public-api/users?access-token=${restKey}`;
+    const endpoint = `https://gorest.co.in/public-api/users`;
 
     let xhr = new XMLHttpRequest();
 
@@ -20,13 +20,14 @@ function postNewUser (body) {
 
         }
 
-        xhr.setRequestHeader("Content-Type","json/application")
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.setRequestHeader("Authorization",`Bearer ${restKey}`);
 
-        xhr.send(body)
+        xhr.send(body);
     
 }
 
-function requestUsers (pageNum) {
+function requestUsers (pageNum,maxPage) {
 
     const endpoint = `https://gorest.co.in/public-api/users?access-token=${restKey}&page=${pageNum}`;
 
@@ -39,13 +40,14 @@ function requestUsers (pageNum) {
 
         let parsedData = JSON.parse(xhr.responseText);
 
-       // console.log(parsedData);
+        maxPages = parsedData._meta.pageCount;
 
         let allUsers = parsedData.result;
 
        // console.log(allUsers);
+      // let maxPage = parsedData._meta.pageCount;
 
-        displayUsers(allUsers, parsedData._meta.currentPage);
+        displayUsers(allUsers);
         
         
     }
