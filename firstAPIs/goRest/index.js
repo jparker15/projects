@@ -1,8 +1,12 @@
-let currentPage = 1;
+let currentPage = 1,
+    
+    maxPages = undefined;
 
 
 window.onload = () => {
 
+
+    console.log(maxPages);
 
     let uiDiv = createDivElem({id:"uiDiv"});
 
@@ -37,7 +41,7 @@ function submitUser() {
 
     let userBody = {};
 
-    let emailTest = /\S+@\S+\.\S+/;
+   // let emailTest = /\S+@\S+\.\S+/;
 
         for (let i = 0; i < userForm.length; i++) {
             const element = userForm[i];
@@ -49,11 +53,11 @@ function submitUser() {
                 }
                 userBody[element.name] = element.value.trim();
             }
-            else if (element.type == "email" ){
+            else if (element.type == "email" && element.value.trim() != "" ){
                 
-                if(!emailTest.test(element.value.trim())){
-                    return alert ("Enter a Valid Email");
-                }
+                // if(!emailTest.test(element.value.trim())){
+                //     return alert ("Enter a Valid Email");
+                // }
                 userBody[element.name] = element.value.trim();
                 
             }
@@ -79,7 +83,21 @@ function submitUser() {
             
         }
 
-       // console.log(userBody);
+        console.log(userBody.email);
+        
+        const email = userBody.email,
+                        
+            atRegEx = /@/g,
+
+            periodtRegEx = /\.\./
+
+            numOfAts = email.match(atRegEx).length;
+            //check if there's a dot at 
+        if (email[0] == "." || email[email.length - 1] == "." || numOfAts != 1 || periodtRegEx.test(email) ){
+            alert("Invalid Email Entry")
+
+            return
+        }
 
         userBody = JSON.stringify(userBody);
 
@@ -135,32 +153,40 @@ function uiNewUser () {
 
 
         fNameInput.name = "first_name";
+        fNameInput.placeholder = "Enter a First Name";
         lNameInput.name = "last_name";
+        lNameInput.placeholder = "Enter a Last Name";
         emailInput.name = "email";
+        emailInput.placeholder = "Enter a Email";
         mRadio.type = "radio";
         fRadio.type = "radio";
         emailInput.type = "email";
         mRadio.name = "gender";
-        mRadio.value = "Male";
+        mRadio.value = "male";
         fRadio.name = "gender";
-        fRadio.value = "Female";
+        fRadio.value = "female";
         submitBtn.innerText = "Create New User";
         submitBtn.onclick = submitUser;
         submitBtn.type = "button";
+
+        //DEFAULT VALUES FOR TESTING
+        fNameInput.value = "Dad";
+        lNameInput.value = "*trafficNoise*";
+        emailInput.value = "jbezos@amazon.com";
         
 
 
-        newUserForm.innerHTML += "First Name:";
+        // newUserForm.innerHTML += "First Name:";
         newUserForm.appendChild(fNameInput);
-        newUserForm.innerHTML += "<br>Last Name:";
+        // newUserForm.innerHTML += "<br>Last Name:";
         newUserForm.appendChild(lNameInput);
-        newUserForm.innerHTML += "<br>Email:";
+        // newUserForm.innerHTML += "<br>Email:";
         newUserForm.appendChild(emailInput);
-        newUserForm.innerHTML += "<br>Male:";
+        // newUserForm.innerHTML += "<br>Male:";
         newUserForm.appendChild(mRadio);
-        newUserForm.innerHTML += " Female:";
+        // newUserForm.innerHTML += " Female:";
         newUserForm.appendChild(fRadio);    
-        newUserForm.innerHTML += "<br>";
+        // newUserForm.innerHTML += "<br>";
         newUserForm.appendChild(submitBtn);   
        
 
@@ -170,7 +196,11 @@ function uiNewUser () {
 function displayUsers(userData){
 
     //console.log(userData);
-        //clear div of HTML
+       //clear div of HTML
+
+    //    let maxPages = maxPage;
+    //         //console.log(maxPages);
+            
     usersDiv.innerHTML = "";
 
     let heading = createHeading({size:2,text:`Page #${currentPage}`})
@@ -396,14 +426,14 @@ function prevPageReq() {
     //     currentPage = 100;
     // }
 
-    currentPage = currentPage == 1 ? 104 : currentPage - 1;
+    currentPage = currentPage == 1 ? maxPages : currentPage - 1;
 
     requestUsers(currentPage);
 
 }
 
 function nextPageReq() {
-    currentPage = currentPage == 104 ? 1 : currentPage + 1; 
+    currentPage = currentPage == maxPages ? 1 : currentPage + 1; 
 
     requestUsers(currentPage);
 }
