@@ -12,9 +12,14 @@ body{
 }
 
 #usersDiv div{
-    border:2px solid antiquewhite;
+    border: 25px double  khaki;
     margin: 20px 0px 0px 0px;
     background-color: lightgoldenrodyellow;
+    border-radius: 50px ;
     
+}
+
+#usersDiv div :hover {
+    background-color: lightgreen ;
 }
 
