@@ -6,7 +6,9 @@ let currentPage = 1,
 window.onload = () => {
 
 
-    console.log(maxPages);
+//    console.log(maxPages);
+
+        //initial html elems creation
 
     let uiDiv = createDivElem({id:"uiDiv"});
 
@@ -28,8 +30,10 @@ window.onload = () => {
     
     document.body.appendChild(uiDiv);
     document.body.appendChild(usersDiv);
-    
+
+    //requests a page containing 10 users
     requestUsers(currentPage);
+    //ui to create and POST req new users
     uiNewUser();
   
 }
