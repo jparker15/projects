@@ -19,7 +19,9 @@ body{
     
 }
 
-#usersDiv div :hover {
-    background-color: lightgreen ;
+#usersDiv button {
+    margin: 10px;
 }
+
+
 
