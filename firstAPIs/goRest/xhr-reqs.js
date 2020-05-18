@@ -15,7 +15,9 @@ function postNewUser (body) {
 
             let parsedData = JSON.parse(xhr.responseText);
 
-            console.log(parsedData);
+            console.log(parsedData._meta);
+
+            //if(parsedData)
             
 
         }
@@ -44,7 +46,7 @@ function requestUsers (pageNum,maxPage) {
 
         let allUsers = parsedData.result;
 
-       // console.log(allUsers);
+        console.log(allUsers);
       // let maxPage = parsedData._meta.pageCount;
 
         displayUsers(allUsers);
