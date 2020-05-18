@@ -105,10 +105,10 @@ function submitUser() {
 
         userBody = JSON.stringify(userBody);
 
-        console.log(userBody);
+       // console.log(userBody);
         
 
-       // postNewUser(userBody);
+        postNewUser(userBody);
         
 
     // for (const htmlElems of userForm) {
@@ -155,6 +155,10 @@ function uiNewUser () {
         submitBtn = document.createElement("button"),
         newUserHeading = createHeading({size:1,text: "Create a New User"});
 
+        // let dobInput = document.createElement("input");
+        //         dobInput.placeholder = "DOB: YYYY-MM-DD";
+        //         dobInput.name = "dob";
+
 
 
         fNameInput.name = "first_name";
@@ -187,6 +191,8 @@ function uiNewUser () {
         newUserForm.appendChild(lNameInput);
         newUserForm.innerHTML += "Enter Email:";
         newUserForm.appendChild(emailInput);
+        // newUserForm.innerHTML += "Enter a Date of Birth YYYY-MM-DD:";
+        // newUserForm.appendChild(dobInput);
         newUserForm.innerHTML += "Male:";
         newUserForm.appendChild(mRadio);
         newUserForm.innerHTML += "Female:";
