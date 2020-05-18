@@ -152,7 +152,8 @@ function uiNewUser () {
         emailInput = document.createElement("input"),
         mRadio = document.createElement("input"),
         fRadio = document.createElement("input"),
-        submitBtn = document.createElement("button");
+        submitBtn = document.createElement("button"),
+        newUserHeading = createHeading({size:1,text: "Create a New User"});
 
 
 
@@ -179,18 +180,17 @@ function uiNewUser () {
         emailInput.value = "jbezos@amazon.com";
         
 
-
-        // newUserForm.innerHTML += "First Name:";
+        newUserForm.appendChild(newUserHeading);
+        newUserForm.innerHTML += "Enter First Name:";
         newUserForm.appendChild(fNameInput);
-        // newUserForm.innerHTML += "<br>Last Name:";
+        newUserForm.innerHTML += "Enter Last Name:";
         newUserForm.appendChild(lNameInput);
-        // newUserForm.innerHTML += "<br>Email:";
+        newUserForm.innerHTML += "Enter Email:";
         newUserForm.appendChild(emailInput);
-        // newUserForm.innerHTML += "<br>Male:";
+        newUserForm.innerHTML += "Male:";
         newUserForm.appendChild(mRadio);
-        // newUserForm.innerHTML += " Female:";
-        newUserForm.appendChild(fRadio);    
-        // newUserForm.innerHTML += "<br>";
+        newUserForm.innerHTML += "Female:";
+        newUserForm.appendChild(fRadio);   
         newUserForm.appendChild(submitBtn);   
        
 
