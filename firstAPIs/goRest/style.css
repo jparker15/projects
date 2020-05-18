@@ -1,10 +1,25 @@
 body{
-    background-color: lightblue;
+    background-color: gray;
+}
+
+form{
+    
+    display: table;
+    margin:0 auto;
+    
+}
+
+input {
+    display: flex;
+    margin: 10px;
 }
 
 #uiDiv{
+    border-radius: 25px;
     text-align: center;
     background-color: lightcoral;
+    padding: 20px;
+    
 }
 
 #usersDiv{
@@ -12,7 +27,7 @@ body{
 }
 
 #usersDiv div{
-    border: 25px double  khaki;
+    
     margin: 20px 0px 0px 0px;
     background-color: lightgoldenrodyellow;
     border-radius: 50px ;
