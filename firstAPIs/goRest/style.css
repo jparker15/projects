@@ -10,8 +10,9 @@ form{
 }
 
 input {
-    display: flex;
-    margin: 10px;
+    display: table;
+    margin:0 auto;
+    
 }
 
 #uiDiv{
@@ -19,11 +20,17 @@ input {
     text-align: center;
     background-color: lightcoral;
     padding: 20px;
+    width: 1000px;
+    display: table;
+    margin: 0 auto;
     
 }
 
 #usersDiv{
     text-align: center;
+    width: 750px;
+    display: table;
+    margin: 0 auto;
 }
 
 #usersDiv div{
