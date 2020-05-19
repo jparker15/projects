@@ -153,11 +153,10 @@ function uiNewUser () {
         mRadio = document.createElement("input"),
         fRadio = document.createElement("input"),
         submitBtn = document.createElement("button"),
-        newUserHeading = createHeading({size:1,text: "Create a New User"});
+        newUserHeading = createHeading({size:1,text: "Create a New User"}),
+        dobInput = document.createElement("input");
 
-        // let dobInput = document.createElement("input");
-        //         dobInput.placeholder = "DOB: YYYY-MM-DD";
-        //         dobInput.name = "dob";
+               
 
 
 
@@ -167,6 +166,8 @@ function uiNewUser () {
         lNameInput.placeholder = "Enter a Last Name";
         emailInput.name = "email";
         emailInput.placeholder = "Enter a Email";
+        dobInput.placeholder = "DOB: YYYY-MM-DD";
+        dobInput.name = "dob";
         mRadio.type = "radio";
         fRadio.type = "radio";
         emailInput.type = "email";
@@ -191,8 +192,8 @@ function uiNewUser () {
         newUserForm.appendChild(lNameInput);
         newUserForm.innerHTML += "Enter Email:";
         newUserForm.appendChild(emailInput);
-        // newUserForm.innerHTML += "Enter a Date of Birth YYYY-MM-DD:";
-        // newUserForm.appendChild(dobInput);
+        newUserForm.innerHTML += "Enter a Date of Birth YYYY-MM-DD:";
+        newUserForm.appendChild(dobInput);
         newUserForm.innerHTML += "Male:";
         newUserForm.appendChild(mRadio);
         newUserForm.innerHTML += "Female:";
