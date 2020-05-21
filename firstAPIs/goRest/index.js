@@ -49,66 +49,73 @@ function submitUser() {
 
         for (let i = 0; i < userForm.length; i++) {
             const element = userForm[i];
-                                            //
-            if (element.type == "text"){
+            //                                 //
+            // if (element.type == "text"){
                
-                if(element.value.trim() == ""){
-                    return alert("Enter a Name");
-                }
-                userBody[element.name] = element.value.trim();
-            }
-            else if (element.type == "email" && element.value.trim() != "" ){
+            //     // if(element.value.trim() == ""){
+            //     //     return alert("Enter a Name");
+            //     // }
+            //     userBody[element.name] = element.value.trim();
+            // }
+            // else if (element.type == "email" && element.value.trim() != "" ){
                 
-                // if(!emailTest.test(element.value.trim())){
-                //     return alert ("Enter a Valid Email");
-                // }
-                userBody[element.name] = element.value.trim();
+            //     // if(!emailTest.test(element.value.trim())){
+            //     //     return alert ("Enter a Valid Email");
+            //     // }
+            //     userBody[element.name] = element.value.trim();
                 
-            }
-            else if (element.type == "radio"){
-               // console.log(element);
-                // if (element.checked != false){
-                //     userBody[element.name] = element.value;
-                //     console.log(userBody);
+            // }
+            // else if (element.type == "radio"){
+            //    // console.log(element);
+            //     // if (element.checked != false){
+            //     //     userBody[element.name] = element.value;
+            //     //     console.log(userBody);
                     
-                //     return JSON.stringify(userBody)
-                // }
+            //     //     return JSON.stringify(userBody)
+            //     // }
 
-              // console.log(element.value,element.checked);
+            //   // console.log(element.value,element.checked);
 
-               if(element.checked == true){
-                   userBody[element.name] = element.value;
-                   //console.log(userBody);
-                   //return userBody
+            //    if(element.checked == true){
+            //        userBody[element.name] = element.value;
+            //        //console.log(userBody);
+            //        //return userBody
                
-               }
+            //    }
                
+            // }
+
+            if (element.type == "date"){
+                console.log(element.value);
+                
+                userBody[element.name] = element.value
             }
+        
             
         }
 
-        console.log(userBody.email);
+        // console.log(userBody.email);
         
-        const email = userBody.email,
+        // const email = userBody.email,
                         
-            atRegEx = /@/g,
+        //     atRegEx = /@/g,
 
-            periodtRegEx = /\.\./
+        //     periodtRegEx = /\.\./,
 
-            numOfAts = email.match(atRegEx).length;
-            //check if there's a dot at 
-        if (email[0] == "." || email[email.length - 1] == "." || numOfAts != 1 || periodtRegEx.test(email) ){
-            alert("Invalid Email Entry")
+        //     numOfAts = email.match(atRegEx).length;
+        //     //check if there's a dot at 
+        // if (email[0] == "." || email[email.length - 1] == "." || numOfAts != 1 || periodtRegEx.test(email) ){
+        //     alert("Invalid Email Entry")
 
-            return
-        }
+        //     return
+        // }
 
-        userBody = JSON.stringify(userBody);
+        //userBody = JSON.stringify(userBody);
 
-       // console.log(userBody);
+       console.log(userBody);
         
 
-        postNewUser(userBody);
+        //postNewUser(userBody);
         
 
     // for (const htmlElems of userForm) {
@@ -162,15 +169,18 @@ function uiNewUser () {
 
         fNameInput.name = "first_name";
         fNameInput.placeholder = "Enter a First Name";
+        fNameInput.value = "ZZTop";
         lNameInput.name = "last_name";
         lNameInput.placeholder = "Enter a Last Name";
         emailInput.name = "email";
         emailInput.placeholder = "Enter a Email";
-        dobInput.placeholder = "DOB: YYYY-MM-DD";
         dobInput.name = "dob";
         mRadio.type = "radio";
         fRadio.type = "radio";
         emailInput.type = "email";
+        dobInput.type = "date";
+        //users age can not be younger then 11 y/o
+        dobInput.max = "2009-01-01";
         mRadio.name = "gender";
         mRadio.value = "male";
         fRadio.name = "gender";
@@ -179,12 +189,6 @@ function uiNewUser () {
         submitBtn.onclick = submitUser;
         submitBtn.type = "button";
 
-        //DEFAULT VALUES FOR TESTING
-        fNameInput.value = "Dad";
-        lNameInput.value = "*trafficNoise*";
-        emailInput.value = "jbezos@amazon.com";
-        
-
         newUserForm.appendChild(newUserHeading);
         newUserForm.innerHTML += "Enter First Name:";
         newUserForm.appendChild(fNameInput);
@@ -192,7 +196,7 @@ function uiNewUser () {
         newUserForm.appendChild(lNameInput);
         newUserForm.innerHTML += "Enter Email:";
         newUserForm.appendChild(emailInput);
-        newUserForm.innerHTML += "Enter a Date of Birth YYYY-MM-DD:";
+        newUserForm.innerHTML += "Enter a Date of Birth";
         newUserForm.appendChild(dobInput);
         newUserForm.innerHTML += "Male:";
         newUserForm.appendChild(mRadio);
