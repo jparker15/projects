@@ -5,7 +5,8 @@ const User = new mongoose.Schema({
     name: {
         type:String,
         required:true,
-        unique:true
+        unique:true,
+    
     },
 
     email: {
@@ -18,6 +19,11 @@ const User = new mongoose.Schema({
         type:String,
         required:true,
         
+    },
+
+    posts: {
+        type: Array,
+        default: [{},{},{}]
     }
 
 })
