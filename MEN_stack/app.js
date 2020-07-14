@@ -19,8 +19,11 @@ const homeRouter = require("./routes/homeRouter");
 
     app.use("/",homeRouter);
     
-    mongoose.connect(connectURI,newObj,()=>{
+    mongoose.connect(connectURI,newObj,(err)=>{
         console.log("app connected to mongoDB");
+        if (err){
+            console.log(`error occured connected to mongoDB, \nerror:\n${err}`);
+        }
     });
 
     mongoose.connection.on("error", (err) => {
@@ -28,7 +31,7 @@ const homeRouter = require("./routes/homeRouter");
     });
 
     mongoose.connection.on("connected", ()=>{
-        console.log(`serving attempting connection to mongoDB..`);
+        console.log(`serving attempting connection to mongoDB . . .`);
     });
 
     app.listen(port, ()=>{
