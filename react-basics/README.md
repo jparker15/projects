@@ -1,3 +1,10 @@
+[] make a class component
+    []implement class state
+    []implemnent LifeCycleMethods
+[] make a function component
+    [] implement useState
+    [] implement useEffect
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
