@@ -6,6 +6,8 @@ const User = new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
+        minlength:3,
+        maxlength:25
     
     },
 
@@ -18,12 +20,16 @@ const User = new mongoose.Schema({
     password: {
         type:String,
         required:true,
+        minlength:3,
+        maxlength:25
+    
         
     },
 
     posts: {
-        type: Array,
-        default: [{},{},{}]
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "posts",
+        default:[]
     }
 
 })

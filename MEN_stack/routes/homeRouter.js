@@ -98,7 +98,7 @@ const User = require("../models/User");
         catch(error){
             res.status(500).json({
                 status:500,
-                message: "error at User DELETE request",
+                message: "error at User PATCH request",
                 error: error.message
             })
         }
